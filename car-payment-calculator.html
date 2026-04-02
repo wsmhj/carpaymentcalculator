@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Car Payment Calculator — Estimate Your Monthly Auto Loan Payment</title>
+<meta name="description" content="Free car payment calculator with real-time results, credit score rates, amortization schedule, and term comparison. No button clicks needed.">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="alternate" hreflang="en" href="https://carpaymentcalculator.app/">
+<link rel="alternate" hreflang="x-default" href="https://carpaymentcalculator.app/">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://carpaymentcalculator.app/">
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="Car Payment Calculator">
+<meta property="og:title" content="Car Payment Calculator — Estimate Your Monthly Auto Loan Payment">
+<meta property="og:description" content="Free car payment calculator with real-time results, credit score rates, amortization schedule, and term comparison.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://carpaymentcalculator.app/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://carpaymentcalculator.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Car Payment Calculator — Free auto loan payment estimator">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Car Payment Calculator — carpaymentcalculator.app">
+<meta name="twitter:description" content="Free car payment calculator with real-time results, credit-based rates, and full amortization schedule.">
+<meta name="twitter:image" content="https://carpaymentcalculator.app/og-image.png">
+
+<!-- WebSite Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Car Payment Calculator",
+  "alternateName": "carpaymentcalculator.app",
+  "url": "https://carpaymentcalculator.app/"
+}
+</script>
+
+<!-- WebApplication Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Car Payment Calculator",
+  "description": "Free car payment calculator with real-time results, credit score rates, amortization schedule, and term comparison.",
+  "url": "https://carpaymentcalculator.app/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<!-- FAQPage Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How accurate is this car payment calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It uses the exact amortization formula banks use. Results match to the cent for the inputs you provide. Actual payments may differ slightly based on dealer fees and your lender's rounding."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this for a car lease?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This tool is built for purchase loans. Car lease payments are calculated differently since you only pay for depreciation over the lease term."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the car payment calculator work for Canada?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The loan math is identical worldwide. The ZIP-based tax lookup covers U.S. states, but Canadian users can leave ZIP blank and type their province's HST/GST rate directly into the tax rate field."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a good monthly car payment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aim to keep your car payment below 10-15% of monthly take-home pay. On $4,000/month income, that means $400-600."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Favicon: hand-drawn car in rounded square -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FFF8F0;
+  --warm: #FEF3E2;
+  --peach: #FFE8D6;
+  --coral: #E8725A;
+  --coral-light: #FFF0EC;
+  --coral-dark: #D45A42;
+  --forest: #2D5A3D;
+  --forest-light: #EAF2EC;
+  --forest-soft: rgba(45,90,61,0.08);
+  --navy: #1E2A3A;
+  --navy-soft: #3A4A5C;
+  --brown: #8B6F47;
+  --brown-light: #C4A97D;
+  --text: #2C2420;
+  --text-mid: #5C4F44;
+  --text-light: #9B8E82;
+  --border: #E8DDD2;
+  --border-dark: #D4C5B5;
+  --shadow: rgba(44,36,32,0.06);
+  --shadow-md: rgba(44,36,32,0.1);
+  --r: 16px;
+  --r-sm: 10px;
+  --r-lg: 24px;
+  --head: 'Fraunces', Georgia, serif;
+  --body: 'Outfit', -apple-system, sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--body);
+  background-color:var(--cream);
+  /* Hand-drawn car-themed repeating pattern (simplified) */
+  background-image:url("data:image/svg+xml,%3Csvg width='280' height='280' viewBox='0 0 280 280' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23D4C5B5' stroke-linecap='round'%3E%3Cg transform='translate(20,30) rotate(-4)' stroke-width='1.3' stroke-linejoin='round' opacity='.35'%3E%3Cpath d='M6 22 9 13Q10 10 13 9L25 7Q28 6 31 7L40 10Q43 11 44 14L47 22'/%3E%3Cline x1='4' y1='22' x2='49' y2='22'/%3E%3Ccircle cx='15' cy='22' r='4'/%3E%3Ccircle cx='40' cy='22' r='4'/%3E%3Cpath d='M18 9 19 14 27 14 28 9'/%3E%3C/g%3E%3Cg transform='translate(55,200)' stroke-width='1.3' opacity='.25'%3E%3Cpath d='M12 4Q6 4 6 8 6 12 12 12 18 12 18 16 18 20 12 20'/%3E%3Cline x1='12' y1='2' x2='12' y2='22'/%3E%3C/g%3E%3Cg stroke-width='1' opacity='.2'%3E%3Cline x1='30' y1='110' x2='95' y2='110' stroke-dasharray='5 4'/%3E%3Cline x1='170' y1='260' x2='250' y2='260' stroke-dasharray='5 4'/%3E%3C/g%3E%3Ccircle cx='150' cy='85' r='5' stroke-width='1.2' opacity='.2'/%3E%3Ccircle cx='230' cy='140' r='3' stroke-width='1' opacity='.15'/%3E%3C/svg%3E");
+  background-repeat:repeat;
+  background-size:280px 280px;
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ========= DECORATIVE SQUIGGLES ========= */
+.squiggle-wrap{position:absolute;pointer-events:none;z-index:0;overflow:hidden;width:100%;height:100%;top:0;left:0;}
+.squig{position:absolute;opacity:0.12;}
+
+/* ========= STICKY BAR ========= */
+.sticky-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,248,240,0.92);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:2px solid var(--border);
+  padding:10px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  transform:translateY(-100%);opacity:0;
+  transition:transform 0.35s ease,opacity 0.35s ease;
+}
+.sticky-bar.visible{transform:translateY(0);opacity:1;}
+.sticky-bar .brand{font-family:var(--head);font-weight:700;font-size:13px;color:var(--coral);letter-spacing:-0.3px;display:flex;align-items:center;gap:6px;}
+.sticky-bar .brand span{color:var(--forest);}
+.logo-mark{display:inline-block;flex-shrink:0;}
+
+/* Hero logo */
+.hero-logo{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-bottom:22px;
+}
+.hero-logo .logo-text{
+  font-family:var(--head);font-size:20px;font-weight:800;
+  color:var(--text);letter-spacing:-0.5px;
+}
+.hero-logo .logo-text span{color:var(--coral);}
+.hero-logo .logo-text em{color:var(--forest);font-style:normal;}
+.sticky-bar .spv{display:flex;align-items:baseline;gap:6px;}
+.sticky-bar .spv .sl{font-size:11px;color:var(--text-light);text-transform:uppercase;letter-spacing:1.2px;font-weight:500;}
+.sticky-bar .spv .sa{font-family:var(--head);font-size:24px;font-weight:800;color:var(--coral);}
+.sticky-bar .spv .sp{font-size:12px;color:var(--text-light);}
+
+/* ========= HERO ========= */
+.hero{
+  position:relative;
+  text-align:center;
+  padding:56px 24px 44px;
+  overflow:hidden;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--coral-light);
+  border:1.5px solid rgba(232,114,90,0.2);
+  border-radius:50px;padding:6px 16px;
+  font-size:13px;font-weight:500;color:var(--coral);
+  margin-bottom:20px;
+}
+.hero-badge svg{flex-shrink:0;}
+.hero h1{
+  font-family:var(--head);
+  font-size:clamp(32px,5.5vw,52px);
+  font-weight:800;
+  letter-spacing:-1px;
+  line-height:1.15;
+  margin-bottom:14px;
+  color:var(--text);
+}
+.hero h1 em{
+  font-style:italic;
+  color:var(--coral);
+  position:relative;
+}
+.hero h1 em::after{
+  content:'';position:absolute;
+  bottom:-2px;left:-4px;right:-4px;height:8px;
+  background:var(--peach);border-radius:4px;
+  z-index:-1;transform:rotate(-1deg);
+}
+.hero p{
+  font-size:17px;color:var(--text-mid);
+  max-width:480px;margin:0 auto;
+  line-height:1.65;
+}
+
+/* ========= MODE TOGGLE ========= */
+.mode-wrap{display:flex;justify-content:center;margin:0 auto 12px;padding:0 24px;}
+.mode-toggle{
+  display:inline-flex;
+  background:var(--warm);
+  border:2px solid var(--border);
+  border-radius:50px;padding:4px;gap:4px;
+}
+.mode-toggle button{
+  padding:12px 22px;min-height:44px;border:none;border-radius:50px;
+  background:transparent;color:var(--text-mid);
+  font-family:var(--body);font-size:14px;font-weight:500;
+  cursor:pointer;transition:all 0.25s;
+}
+.mode-toggle button.active{
+  background:var(--coral);color:#fff;font-weight:600;
+  box-shadow:0 2px 12px rgba(232,114,90,0.3);
+}
+.mode-toggle button:not(.active):hover{color:var(--text);}
+
+/* ========= LAYOUT ========= */
+.container{
+  max-width:1140px;margin:0 auto;padding:0 24px 60px;
+  display:grid;grid-template-columns:1fr 360px;gap:28px;
+  align-items:start;
+}
+@media(max-width:900px){.container{grid-template-columns:1fr;}}
+
+/* ========= PANELS ========= */
+.panel{
+  background:#fff;
+  border:2px solid var(--border);
+  border-radius:var(--r-lg);
+  padding:28px;
+  position:relative;
+  box-shadow:0 1px 3px var(--shadow);
+}
+.panel-tag{
+  display:inline-block;
+  font-family:var(--head);font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:2px;
+  color:var(--text-light);margin-bottom:20px;
+  background:var(--warm);padding:5px 14px;
+  border-radius:50px;border:1.5px solid var(--border);
+}
+
+/* ========= FORM ========= */
+.field{margin-bottom:20px;}
+.field:last-child{margin-bottom:0;}
+.field label{
+  display:block;font-size:13px;font-weight:500;
+  color:var(--text-mid);margin-bottom:7px;
+  letter-spacing:0.2px;
+}
+.field-hint{
+  font-size:11px;color:var(--text-light);margin-top:6px;line-height:1.5;
+  display:flex;align-items:flex-start;gap:5px;
+}
+.field-hint svg{flex-shrink:0;margin-top:1px;}
+.field-warning{font-size:11px;color:var(--coral);margin-top:6px;line-height:1.5;display:flex;align-items:center;gap:5px;transition:opacity 0.2s;}
+.field-warning.error{color:var(--coral-dark);}
+.input-wrap{position:relative;display:flex;align-items:center;}
+.input-wrap .prefix{position:absolute;left:14px;font-size:15px;color:var(--text-light);font-weight:500;pointer-events:none;z-index:1;}
+.input-wrap .suffix{position:absolute;right:14px;font-size:13px;color:var(--text-light);pointer-events:none;}
+input[type="text"]{
+  width:100%;
+  background:var(--warm);
+  border:2px solid var(--border);
+  border-radius:var(--r-sm);
+  padding:12px 14px;
+  font-family:var(--head);font-size:16px;font-weight:600;
+  color:var(--text);outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+input:focus{border-color:var(--coral);box-shadow:0 0 0 3px rgba(232,114,90,0.12);}
+input.has-prefix{padding-left:30px;}
+input.has-suffix{padding-right:40px;}
+input::placeholder{color:var(--text-light);font-weight:400;}
+
+/* ========= SLIDER ========= */
+.slider-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.slider-row input[type="range"]{
+  flex:1;-webkit-appearance:none;appearance:none;
+  height:8px;background:var(--peach);border-radius:4px;
+  outline:none;border:none;cursor:pointer;
+}
+.slider-row input[type="range"]:focus{box-shadow:0 0 0 3px rgba(232,114,90,0.12);}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:36px;height:36px;
+  background:var(--coral);border-radius:50%;cursor:pointer;
+  box-shadow:0 2px 8px rgba(232,114,90,0.4);
+  border:3px solid #fff;transition:transform 0.15s;
+}
+input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.12);}
+input[type="range"]::-moz-range-thumb{width:36px;height:36px;background:var(--coral);border-radius:50%;cursor:pointer;border:3px solid #fff;}
+.slider-val{font-family:var(--head);font-size:14px;font-weight:600;color:var(--coral);min-width:50px;text-align:right;}
+.slider-val.warning{color:var(--coral-dark);}
+.slider-btn{
+  width:44px;height:44px;
+  background:var(--warm);border:2px solid var(--border);border-radius:50%;
+  color:var(--text-mid);font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.15s;font-family:var(--body);flex-shrink:0;
+}
+.slider-btn:hover{border-color:var(--coral);color:var(--coral);background:var(--coral-light);}
+
+/* ========= BUTTON GROUPS ========= */
+.btn-group{display:flex;gap:6px;flex-wrap:wrap;}
+.btn-group button{
+  flex:1;min-width:0;padding:12px 6px;min-height:44px;
+  background:var(--warm);border:2px solid var(--border);
+  border-radius:var(--r-sm);color:var(--text-mid);
+  font-family:var(--body);font-size:13px;font-weight:500;
+  cursor:pointer;transition:all 0.2s;white-space:nowrap;
+}
+.btn-group button:hover{border-color:var(--brown-light);color:var(--text);}
+.btn-group button.active{background:var(--coral-light);border-color:var(--coral);color:var(--coral);font-weight:600;}
+
+.toggle-row{display:flex;background:var(--warm);border-radius:var(--r-sm);border:2px solid var(--border);overflow:hidden;}
+.toggle-row button{
+  flex:1;padding:12px 16px;min-height:44px;background:transparent;border:none;
+  color:var(--text-mid);font-family:var(--body);font-size:13px;font-weight:500;
+  cursor:pointer;transition:all 0.2s;
+}
+.toggle-row button.active{background:var(--forest);color:#fff;font-weight:600;}
+
+/* ========= RESULT PANEL ========= */
+.result-panel{position:sticky;top:58px;}
+.monthly-box{
+  text-align:center;padding:30px 20px;
+  background:linear-gradient(135deg,var(--coral-light) 0%,#fff 100%);
+  border-radius:var(--r);margin-bottom:22px;
+  border:2px solid rgba(232,114,90,0.15);
+  position:relative;overflow:hidden;
+}
+.monthly-box::before{
+  content:'';position:absolute;top:-20px;right:-20px;
+  width:80px;height:80px;border-radius:50%;
+  background:var(--peach);opacity:0.5;
+}
+.monthly-box .car-deco{
+  position:absolute;top:12px;right:14px;opacity:0.12;
+}
+.monthly-box .ml{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-light);margin-bottom:8px;font-weight:500;}
+.monthly-box .ma{font-family:var(--head);font-size:50px;font-weight:800;color:var(--coral);line-height:1;margin-bottom:4px;position:relative;}
+.monthly-box .mp{font-size:14px;color:var(--text-mid);}
+
+.reverse-box{
+  text-align:center;padding:28px 20px;
+  background:linear-gradient(135deg,var(--forest-light) 0%,#fff 100%);
+  border:2px solid rgba(45,90,61,0.12);
+  border-radius:var(--r);margin-bottom:22px;
+}
+.reverse-box .rl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-light);margin-bottom:8px;font-weight:500;}
+.reverse-box .ra{font-family:var(--head);font-size:44px;font-weight:800;color:var(--forest);line-height:1;}
+.reverse-box .rs{font-size:13px;color:var(--text-mid);margin-top:8px;}
+
+/* ========= BREAKDOWN ========= */
+.breakdown{margin-bottom:22px;}
+.breakdown-item{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1.5px solid var(--border);font-size:13px;}
+.breakdown-item:last-child{border-bottom:none;}
+.breakdown-item .bl{color:var(--text-mid);}
+.breakdown-item .bv{font-family:var(--head);font-size:14px;font-weight:600;color:var(--text);}
+.breakdown-item.total{border-top:2px solid var(--border-dark);border-bottom:none;padding-top:12px;margin-top:4px;}
+.breakdown-item.total .bl{color:var(--text);font-weight:600;}
+.breakdown-item.total .bv{color:var(--coral);font-weight:700;font-size:15px;}
+
+/* ratio bar */
+.ratio-bar-wrap{margin-bottom:22px;}
+.ratio-bar{height:10px;border-radius:5px;background:var(--peach);overflow:hidden;display:flex;margin-bottom:8px;}
+.ratio-bar .ps{background:var(--forest);transition:width 0.4s;border-radius:5px 0 0 5px;}
+.ratio-bar .is{background:var(--coral);transition:width 0.4s;border-radius:0 5px 5px 0;}
+.ratio-legend{display:flex;justify-content:space-between;font-size:11px;font-weight:500;}
+.ratio-legend span{display:flex;align-items:center;gap:5px;color:var(--text-light);}
+.ratio-legend .dot{width:8px;height:8px;border-radius:50%;}
+.ratio-legend .dot.p{background:var(--forest);}
+.ratio-legend .dot.i{background:var(--coral);}
+
+/* ========= COMPARISON TABLE ========= */
+.comp-section{margin-top:28px;}
+.comp-table{width:100%;border-collapse:collapse;font-size:13px;}
+.comp-table th{
+  text-align:left;padding:10px 12px;
+  background:var(--warm);color:var(--text-light);
+  font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:0.8px;
+}
+.comp-table th:first-child{border-radius:var(--r-sm) 0 0 var(--r-sm);}
+.comp-table th:last-child{border-radius:0 var(--r-sm) var(--r-sm) 0;}
+.comp-table td{padding:11px 12px;border-bottom:1.5px solid var(--border);font-family:var(--head);font-size:13px;font-weight:600;}
+.comp-table tr.active-row td{background:var(--coral-light);color:var(--coral);}
+.comp-table tbody tr{cursor:pointer;transition:background 0.15s;}
+.comp-table tbody tr:hover td{background:var(--warm);}
+.comp-table tr.active-row:hover td{background:var(--coral-light);}
+
+/* ========= AMORTIZATION ========= */
+.amort-section{margin-top:28px;}
+.amort-chart-wrap{margin-bottom:18px;position:relative;}
+.amort-chart-wrap svg{width:100%;display:block;}
+.chart-tooltip{
+  position:absolute;background:#fff;
+  border:2px solid var(--border);border-radius:var(--r-sm);
+  padding:10px 14px;font-size:12px;pointer-events:none;
+  opacity:0;transition:opacity 0.15s;z-index:10;min-width:160px;
+  box-shadow:0 4px 16px var(--shadow-md);
+}
+.chart-tooltip.show{opacity:1;}
+.chart-tooltip .ct-title{font-family:var(--head);font-weight:700;color:var(--text);margin-bottom:6px;}
+.chart-tooltip .ct-row{display:flex;justify-content:space-between;gap:14px;margin-bottom:2px;}
+.chart-tooltip .ct-label{color:var(--text-light);}
+.chart-tooltip .ct-val{font-family:var(--head);font-weight:600;}
+.chart-tooltip .ct-val.principal{color:var(--forest);}
+.chart-tooltip .ct-val.interest{color:var(--coral);}
+
+.amort-toggle{display:flex;gap:6px;margin-bottom:14px;}
+.amort-toggle button{
+  padding:7px 14px;background:var(--warm);border:2px solid var(--border);
+  border-radius:var(--r-sm);color:var(--text-mid);font-family:var(--body);
+  font-size:12px;font-weight:500;cursor:pointer;transition:all 0.2s;
+}
+.amort-toggle button.active{background:var(--forest-light);border-color:var(--forest);color:var(--forest);}
+
+.amort-table-wrap{max-height:380px;overflow-y:auto;border-radius:var(--r-sm);border:2px solid var(--border);}
+.amort-table-wrap::-webkit-scrollbar{width:5px;}
+.amort-table-wrap::-webkit-scrollbar-track{background:var(--warm);}
+.amort-table-wrap::-webkit-scrollbar-thumb{background:var(--border-dark);border-radius:3px;}
+.amort-table{width:100%;border-collapse:collapse;font-size:12px;}
+.amort-table thead{position:sticky;top:0;z-index:2;}
+.amort-table th{background:var(--warm);padding:9px 10px;text-align:right;color:var(--text-light);font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;}
+.amort-table th:first-child{text-align:left;}
+.amort-table td{padding:8px 10px;text-align:right;font-family:var(--head);font-size:12px;font-weight:600;color:var(--text-mid);border-bottom:1px solid var(--border);}
+.amort-table td:first-child{text-align:left;color:var(--text);font-family:var(--body);font-weight:500;}
+.amort-table .year-sep td{background:var(--warm);color:var(--forest);font-family:var(--head);font-weight:700;text-align:left;}
+
+/* accordion */
+.acc-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:12px 0;user-select:none;}
+.acc-header .arrow{transition:transform 0.3s;color:var(--text-light);}
+.acc-header.open .arrow{transform:rotate(180deg);}
+.acc-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+.acc-body.open{max-height:8000px;}
+
+/* ========= DISCLAIMER ========= */
+.disclaimer{
+  padding:14px 16px;background:var(--warm);border-radius:var(--r-sm);
+  font-size:12px;color:var(--text-light);line-height:1.5;
+  border:1.5px dashed var(--border-dark);
+}
+
+/* ========= SEO CONTENT ========= */
+.seo-content{max-width:780px;margin:0 auto;padding:56px 24px 24px;}
+.seo-content .seo-h2-main{font-family:var(--head);font-size:26px;font-weight:800;letter-spacing:-0.5px;margin-bottom:18px;color:var(--text);line-height:1.25;}
+.seo-content h2{font-family:var(--head);font-size:21px;font-weight:700;margin-top:34px;margin-bottom:12px;color:var(--text);line-height:1.3;letter-spacing:-0.3px;}
+.seo-content h3{font-family:var(--head);font-size:17px;font-weight:600;margin-top:24px;margin-bottom:10px;color:var(--text);line-height:1.35;}
+.seo-content h4{font-size:14px;font-weight:600;margin-top:20px;margin-bottom:7px;color:var(--text-mid);line-height:1.4;}
+.seo-content p{font-size:15px;color:var(--text-mid);line-height:1.75;margin-bottom:14px;}
+.seo-content strong{color:var(--text);font-weight:600;}
+.seo-content sup{font-size:10px;}
+
+/* ========= FOOTER ========= */
+.footer{
+  text-align:center;padding:32px 24px;font-size:12px;
+  color:var(--text-light);border-top:2px solid var(--border);
+  margin-top:40px;background:var(--warm);
+}
+.footer .f-brand{font-family:var(--head);font-weight:700;color:var(--coral);font-size:14px;margin-bottom:6px;}
+
+/* ========= ANIMATIONS ========= */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.fi{animation:fadeUp 0.55s ease forwards;}
+.fi1{animation-delay:0.08s;opacity:0;}
+.fi2{animation-delay:0.18s;opacity:0;}
+.fi3{animation-delay:0.28s;opacity:0;}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 0 0 rgba(232,114,90,0);}50%{box-shadow:0 0 16px 3px rgba(232,114,90,0.1);}}
+.monthly-box.updating{animation:pulse-glow 0.3s ease;}
+@keyframes wiggle{0%,100%{transform:rotate(0deg);}25%{transform:rotate(-2deg);}75%{transform:rotate(2deg);}}
+
+.hidden{display:none!important;}
+</style>
+</head>
+<body>
+
+<!-- Sticky -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="brand">
+    <svg class="logo-mark" width="32" height="20" viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#E8725A" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 32 L9 20 Q10 15 15 13 L28 9 Q33 8 38 10 L48 15 Q52 17 53 21 L57 32"/>
+        <line x1="3" y1="32" x2="59" y2="32"/>
+        <circle cx="16" cy="32" r="6"/><circle cx="16" cy="32" r="2.5"/>
+        <circle cx="48" cy="32" r="6"/><circle cx="48" cy="32" r="2.5"/>
+        <path d="M20 13 L22 21 L32 21 L33 13"/>
+        <path d="M35 14 L36 21 L46 21 L47 16"/>
+      </g>
+      <circle cx="52" cy="10" r="9" fill="#2D5A3D" stroke="#FFF8F0" stroke-width="2"/>
+      <path d="M52 5.5 Q49.5 5.5 49.5 7.5 Q49.5 10 52 10 Q54.5 10 54.5 12 Q54.5 14.5 52 14.5" stroke="#FFF8F0" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="52" y1="4" x2="52" y2="16" stroke="#FFF8F0" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    Car <span>Payment</span> Calculator
+  </div>
+  <div class="spv">
+    <span class="sl" id="stickyLabel">Est. Payment</span>
+    <span class="sa" id="stickyAmount">$0</span>
+    <span class="sp" id="stickyPer">/mo</span>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="hero fi">
+  <!-- Decorative car-themed SVGs -->
+  <div class="squiggle-wrap">
+    <!-- Car silhouette left -->
+    <svg class="squig" style="top:8%;left:4%;width:110px;opacity:0.09;transform:rotate(-6deg);" viewBox="0 0 120 60" fill="none" stroke="#E8725A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 42 L20 28 Q22 22 28 20 L50 15 Q58 13 65 15 L85 22 Q92 25 95 30 L102 42"/>
+      <line x1="10" y1="42" x2="108" y2="42"/>
+      <circle cx="32" cy="42" r="8"/><circle cx="32" cy="42" r="4"/>
+      <circle cx="85" cy="42" r="8"/><circle cx="85" cy="42" r="4"/>
+      <path d="M38 20 L42 28 L58 28 L62 20"/>
+      <path d="M65 20 L68 28 L82 28 L85 22"/>
+    </svg>
+    <!-- Key icon right -->
+    <svg class="squig" style="top:15%;right:7%;width:50px;opacity:0.1;transform:rotate(15deg);" viewBox="0 0 50 50" fill="none" stroke="#2D5A3D" stroke-width="2.5" stroke-linecap="round">
+      <circle cx="18" cy="18" r="10"/><circle cx="18" cy="18" r="4"/>
+      <line x1="26" y1="26" x2="42" y2="42"/>
+      <line x1="42" y1="42" x2="42" y2="35"/>
+      <line x1="36" y1="36" x2="36" y2="30"/>
+    </svg>
+    <!-- Speed gauge bottom-left -->
+    <svg class="squig" style="bottom:18%;left:8%;width:45px;opacity:0.1;transform:rotate(-8deg);" viewBox="0 0 50 35" fill="none" stroke="#C4A97D" stroke-width="2.5" stroke-linecap="round">
+      <path d="M5 30 A20 20 0 0 1 45 30"/>
+      <line x1="25" y1="28" x2="18" y2="12"/>
+      <circle cx="25" cy="28" r="3"/>
+    </svg>
+    <!-- Road / wavy line bottom-right -->
+    <svg class="squig" style="bottom:12%;right:10%;width:70px;opacity:0.08;" viewBox="0 0 70 30" fill="none" stroke="#E8725A" stroke-width="2.5" stroke-linecap="round">
+      <path d="M5 20 Q15 5 25 15 Q35 28 45 15 Q55 5 65 15"/>
+      <line x1="5" y1="28" x2="65" y2="28" stroke-dasharray="4 4"/>
+    </svg>
+    <!-- Steering wheel top-center-right -->
+    <svg class="squig" style="top:50%;right:3%;width:35px;opacity:0.08;transform:rotate(12deg);" viewBox="0 0 40 40" fill="none" stroke="#2D5A3D" stroke-width="2.5" stroke-linecap="round">
+      <circle cx="20" cy="20" r="15"/>
+      <circle cx="20" cy="20" r="4"/>
+      <line x1="20" y1="16" x2="20" y2="5"/>
+      <line x1="16" y1="22" x2="7" y2="28"/>
+      <line x1="24" y1="22" x2="33" y2="28"/>
+    </svg>
+  </div>
+
+  <div class="hero-logo">
+    <svg class="logo-mark" width="52" height="34" viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#E8725A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 32 L9 20 Q10 15 15 13 L28 9 Q33 8 38 10 L48 15 Q52 17 53 21 L57 32"/>
+        <line x1="3" y1="32" x2="59" y2="32"/>
+        <circle cx="16" cy="32" r="6"/><circle cx="16" cy="32" r="2.5"/>
+        <circle cx="48" cy="32" r="6"/><circle cx="48" cy="32" r="2.5"/>
+        <path d="M20 13 L22 21 L32 21 L33 13"/>
+        <path d="M35 14 L36 21 L46 21 L47 16"/>
+      </g>
+      <circle cx="52" cy="10" r="9" fill="#2D5A3D" stroke="#FFF8F0" stroke-width="2"/>
+      <path d="M52 5.5 Q49.5 5.5 49.5 7.5 Q49.5 10 52 10 Q54.5 10 54.5 12 Q54.5 14.5 52 14.5" stroke="#FFF8F0" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="52" y1="4" x2="52" y2="16" stroke="#FFF8F0" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    <div class="logo-text">Car <span>Payment</span> <em>Calculator</em></div>
+  </div>
+
+  <div class="hero-badge">
+    <svg width="18" height="11" viewBox="0 0 120 60" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 42 L20 28 Q22 22 28 20 L50 15 Q58 13 65 15 L85 22 Q92 25 95 30 L102 42"/><line x1="10" y1="42" x2="108" y2="42"/><circle cx="32" cy="42" r="8"/><circle cx="85" cy="42" r="8"/></svg>
+    Free — No signup required
+  </div>
+  <h1>Car Payment <em>Calculator</em></h1>
+  <p>Real-time estimates with credit-based rates, tax lookup, and full amortization. Just type — results update instantly.</p>
+</div>
+
+<!-- Mode -->
+<div class="mode-wrap fi fi1">
+  <div class="mode-toggle" id="modeToggle" role="group" aria-label="Calculator mode">
+    <button class="active" data-mode="forward" aria-pressed="true">I know the car price</button>
+    <button data-mode="reverse" aria-pressed="false">I know my budget</button>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="container">
+  <div class="left-col">
+    <div class="panel fi fi1">
+      <span class="panel-tag" id="formTitle">Vehicle & Loan Details</span>
+
+      <div class="field" id="fieldPrice">
+        <label>Vehicle Price</label>
+        <div class="input-wrap">
+          <span class="prefix">$</span>
+          <input type="text" id="price" class="has-prefix" value="35,000" inputmode="numeric" aria-label="Vehicle price in dollars">
+        </div>
+        <div class="field-warning" id="priceWarning" style="display:none"></div>
+      </div>
+
+      <div class="field hidden" id="fieldBudget">
+        <label>Your Monthly Budget</label>
+        <div class="input-wrap">
+          <span class="prefix">$</span>
+          <input type="text" id="budget" class="has-prefix" value="500" inputmode="numeric" aria-label="Monthly budget in dollars">
+        </div>
+        <div class="field-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>
+          <span>Enter the max you can pay monthly — we'll find the most expensive car you can afford.</span>
+        </div>
+        <div class="field-warning" id="budgetWarning" style="display:none"></div>
+      </div>
+
+      <div class="field">
+        <label>Vehicle Condition</label>
+        <div class="toggle-row" id="conditionToggle" role="group" aria-label="Vehicle condition">
+          <button class="active" data-val="new" aria-pressed="true">New</button>
+          <button data-val="used" aria-pressed="false">Used</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Down Payment</label>
+        <div class="input-wrap">
+          <span class="prefix">$</span>
+          <input type="text" id="downPayment" class="has-prefix" value="5,000" inputmode="numeric" aria-label="Down payment in dollars">
+        </div>
+        <div class="slider-row">
+          <button type="button" class="slider-btn" id="downMinus" title="-$500" aria-label="Decrease down payment by $500">&minus;</button>
+          <input type="range" id="downSlider" min="0" max="50000" step="250" value="5000" aria-label="Down payment slider" aria-valuemin="0" aria-valuemax="50000" aria-valuenow="5000">
+          <button type="button" class="slider-btn" id="downPlus" title="+$500" aria-label="Increase down payment by $500">+</button>
+          <span class="slider-val" id="downPercent">14.3%</span>
+        </div>
+        <div class="field-warning" id="downWarning" style="display:none"></div>
+      </div>
+
+      <div class="field">
+        <label>Trade-in Value</label>
+        <div class="input-wrap">
+          <span class="prefix">$</span>
+          <input type="text" id="tradeIn" class="has-prefix" value="0" placeholder="0" inputmode="numeric" aria-label="Trade-in value in dollars">
+        </div>
+        <div class="field-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>
+          <span>Trading in your current car? Enter its value to reduce your loan.</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Credit Score</label>
+        <div class="btn-group" id="creditGroup" role="group" aria-label="Credit score range">
+          <button data-val="excellent" class="active" aria-pressed="true">Excellent<br><small style="font-size:10px;opacity:0.5">750+</small></button>
+          <button data-val="good" aria-pressed="false">Good<br><small style="font-size:10px;opacity:0.5">700-749</small></button>
+          <button data-val="fair" aria-pressed="false">Fair<br><small style="font-size:10px;opacity:0.5">650-699</small></button>
+          <button data-val="poor" aria-pressed="false">Poor<br><small style="font-size:10px;opacity:0.5">&lt;650</small></button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Interest Rate (APR) — <span id="aprSource" style="color:var(--coral);font-size:11px;">auto from credit score</span></label>
+        <div class="input-wrap">
+          <input type="text" id="apr" class="has-suffix" value="6.5" inputmode="decimal" aria-label="Annual percentage rate">
+          <span class="suffix">%</span>
+        </div>
+        <div class="field-warning" id="aprWarning" style="display:none"></div>
+      </div>
+
+      <div class="field">
+        <label>Loan Term (months)</label>
+        <div class="btn-group" id="termGroup" role="group" aria-label="Loan term in months">
+          <button data-val="24" aria-pressed="false">24</button>
+          <button data-val="36" aria-pressed="false">36</button>
+          <button data-val="48" aria-pressed="false">48</button>
+          <button data-val="60" class="active" aria-pressed="true">60</button>
+          <button data-val="72" aria-pressed="false">72</button>
+          <button data-val="84" aria-pressed="false">84</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Sales Tax — <span id="taxSource" style="color:var(--coral);font-size:11px;">enter ZIP or set manually</span></label>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div class="input-wrap" style="max-width:150px;">
+            <input type="text" id="zip" value="" placeholder="ZIP code" maxlength="5" inputmode="numeric" aria-label="ZIP code for sales tax estimate">
+          </div>
+          <div class="input-wrap" style="max-width:120px;">
+            <input type="text" id="taxRateInput" class="has-suffix" value="" placeholder="0" inputmode="decimal" aria-label="Sales tax rate percentage">
+            <span class="suffix">%</span>
+          </div>
+        </div>
+        <div id="taxInfo" style="font-size:11px;color:var(--text-light);margin-top:6px;"></div>
+      </div>
+    </div>
+
+    <!-- Comparison -->
+    <div class="comp-section panel fi fi2">
+      <span class="panel-tag">Term Comparison</span>
+      <table class="comp-table" id="compTable">
+        <thead><tr><th>Term</th><th id="compColTwo">Monthly</th><th>Total Interest</th><th>Total Cost</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Amortization -->
+    <div class="amort-section panel fi fi3">
+      <div class="acc-header" id="amortHeader">
+        <span class="panel-tag" style="margin:0;">Amortization Schedule</span>
+        <svg class="arrow" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+      </div>
+      <div class="acc-body" id="amortBody">
+        <div class="amort-chart-wrap" id="chartWrap">
+          <svg id="amortChart" viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div class="chart-tooltip" id="chartTooltip">
+            <div class="ct-title" id="ctTitle"></div>
+            <div class="ct-row"><span class="ct-label">Principal</span><span class="ct-val principal" id="ctPrincipal"></span></div>
+            <div class="ct-row"><span class="ct-label">Interest</span><span class="ct-val interest" id="ctInterest"></span></div>
+            <div class="ct-row"><span class="ct-label">Balance</span><span class="ct-val" id="ctBalance"></span></div>
+          </div>
+        </div>
+        <div class="amort-toggle">
+          <button class="active" id="amortYearBtn">Annual</button>
+          <button id="amortMonthBtn">Monthly</button>
+        </div>
+        <div class="amort-table-wrap">
+          <table class="amort-table" id="amortTable">
+            <thead><tr><th style="text-align:left">Period</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right -->
+  <div class="right-col">
+    <div class="panel result-panel fi fi2">
+      <div id="forwardResult">
+        <div class="monthly-box" id="monthlyDisplay">
+          <svg class="car-deco" width="52" height="28" viewBox="0 0 120 60" fill="none" stroke="#E8725A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 42 L20 28 Q22 22 28 20 L50 15 Q58 13 65 15 L85 22 Q92 25 95 30 L102 42"/><line x1="10" y1="42" x2="108" y2="42"/><circle cx="32" cy="42" r="8"/><circle cx="32" cy="42" r="3.5"/><circle cx="85" cy="42" r="8"/><circle cx="85" cy="42" r="3.5"/><path d="M38 20 L42 28 L58 28 L62 20"/><path d="M65 20 L68 28 L82 28 L85 22"/></svg>
+          <div class="ml">Estimated Monthly Payment</div>
+          <div class="ma" id="monthlyAmount">$0</div>
+          <div class="mp">per month for <span id="termLabel">60</span> months</div>
+        </div>
+      </div>
+      <div id="reverseResult" class="hidden">
+        <div class="reverse-box">
+          <div class="rl">Maximum Vehicle Price</div>
+          <div class="ra" id="reversePrice">$0</div>
+          <div class="rs">based on <span id="reverseBudget">$500</span>/mo budget</div>
+        </div>
+      </div>
+
+      <div class="ratio-bar-wrap">
+        <div class="ratio-bar">
+          <div class="ps" id="principalSeg" style="width:80%"></div>
+          <div class="is" id="interestSeg" style="width:20%"></div>
+        </div>
+        <div class="ratio-legend">
+          <span><span class="dot p"></span>Principal <span id="principalPct">80%</span></span>
+          <span><span class="dot i"></span>Interest <span id="interestPct">20%</span></span>
+        </div>
+      </div>
+
+      <div class="breakdown">
+        <div class="breakdown-item"><span class="bl">Vehicle Price</span><span class="bv" id="brkPrice">$35,000</span></div>
+        <div class="breakdown-item"><span class="bl">Down Payment</span><span class="bv" id="brkDown">−$5,000</span></div>
+        <div class="breakdown-item"><span class="bl">Trade-in</span><span class="bv" id="brkTrade">−$0</span></div>
+        <div class="breakdown-item" id="taxRow" style="display:none"><span class="bl">Est. Sales Tax (<span id="brkTaxRate">0</span>%)</span><span class="bv" id="brkTax">$0</span></div>
+        <div class="breakdown-item"><span class="bl">Loan Amount</span><span class="bv" id="brkLoan">$30,000</span></div>
+        <div class="breakdown-item"><span class="bl">Total Interest</span><span class="bv" id="brkInterest" style="color:var(--coral)">$0</span></div>
+        <div class="breakdown-item total"><span class="bl">Total of All Payments</span><span class="bv" id="brkTotal">$0</span></div>
+      </div>
+
+      <div class="disclaimer">
+        This calculator provides estimates only. Actual payments may vary based on lender terms, fees, and your credit profile.
+      </div>
+
+      <div style="margin-top:18px;font-size:12px;color:var(--text-light);line-height:1.6;text-align:center;">
+        <p><strong style="color:var(--text-mid);">Like this calculator?</strong> Share it with someone shopping for a car.</p>
+        <p style="margin-top:4px;">Questions or feedback? Reach us at <a href="mailto:websiteaftersales@gmail.com" style="color:var(--coral);text-decoration:none;">websiteaftersales@gmail.com</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Road divider -->
+<div style="text-align:center;padding:20px 0 0;overflow:hidden;">
+  <svg width="320" height="50" viewBox="0 0 320 50" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.18;">
+    <line x1="0" y1="38" x2="320" y2="38" stroke="#D4C5B5" stroke-width="2"/>
+    <line x1="0" y1="42" x2="320" y2="42" stroke="#D4C5B5" stroke-width="1" stroke-dasharray="8 6"/>
+    <!-- Car driving on road -->
+    <g transform="translate(120,10)">
+      <path d="M8 24 L12 14 Q13 10 17 9 L32 6 Q36 5 40 7 L52 12 Q56 14 58 18 L62 24" stroke="#E8725A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="5" y1="24" x2="65" y2="24" stroke="#E8725A" stroke-width="2"/>
+      <circle cx="20" cy="24" r="5" stroke="#E8725A" stroke-width="2"/><circle cx="20" cy="24" r="2" stroke="#E8725A" stroke-width="1.5"/>
+      <circle cx="52" cy="24" r="5" stroke="#E8725A" stroke-width="2"/><circle cx="52" cy="24" r="2" stroke="#E8725A" stroke-width="1.5"/>
+      <path d="M22 9 L25 15 L35 15 L37 9" stroke="#E8725A" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Exhaust puffs -->
+      <circle cx="-2" cy="20" r="3" stroke="#C4A97D" stroke-width="1.5" opacity="0.5"/>
+      <circle cx="-9" cy="18" r="2" stroke="#C4A97D" stroke-width="1.5" opacity="0.3"/>
+    </g>
+  </svg>
+</div>
+
+<!-- SEO Content -->
+<div class="seo-content">
+
+<h2 class="seo-h2-main">Car Payment Calculator — Know Your Numbers Before You Buy</h2>
+
+<p>Whether you're shopping for a brand-new SUV or a reliable used sedan, the monthly payment is the number that matters most. This <strong>car payment calculator</strong> tells you exactly what you'll owe each month — before you ever step foot in a dealership. Just enter the vehicle price, down payment, loan term, and interest rate. Every result updates instantly as you type, no buttons to click.</p>
+
+<h2>How This Car Payment Calculator Works</h2>
+
+<p>Our <strong>car loan payment calculator</strong> uses the standard amortization formula that banks rely on: M = P × r(1+r)<sup>n</sup> / ((1+r)<sup>n</sup> − 1). Each monthly payment covers principal and interest. Early on, most of your payment goes toward interest; over time, more goes to principal. The tool runs this math in real time so you can see exactly how each variable shifts your payment.</p>
+
+<h2>What Affects Your Monthly Car Payment?</h2>
+
+<h3>Down Payment and Trade-in Value</h3>
+
+<p>Your <strong>down payment</strong> directly reduces the amount you finance. Most advisors recommend 10–20% down. If you're trading in your current vehicle, that value acts like a second down payment. This <strong>car payment calculator with down payment</strong> and trade-in support factors both into the final loan amount, so you see the real number.</p>
+
+<h3>Interest Rate and Credit Score</h3>
+
+<p>APR is the single biggest cost factor after the loan amount. A buyer with excellent credit might get 6.5%, while poor credit can mean 14%+. That gap adds $100+/month on a $30,000 loan. Toggle between four credit tiers above to see how your score impacts both the rate and the monthly payment.</p>
+
+<h4>New vs. Used Car Rates</h4>
+
+<p>Lenders charge higher rates on used vehicles because of increased risk. Our <strong>new car payment calculator</strong> and <strong>used car payment calculator</strong> modes show the rate difference instantly — on a $25,000 loan, expect $30–50/month more for a used car loan.</p>
+
+<h3>Loan Term: Short vs. Long</h3>
+
+<p>A 24-month term means higher payments but far less total interest. An 84-month term lowers your <strong>monthly car payment</strong> but can cost thousands more overall. The term comparison table above lays out all six options side by side — from 24 to 84 months — so you can weigh the tradeoffs instantly.</p>
+
+<h3>Sales Tax by Location</h3>
+
+<p>Vehicle tax varies widely by state — Oregon charges 0%, Texas 6.25%, and California's state rate is 7.25% (local additions can push it past 10%). Some states like Virginia (4.15%) and North Carolina (3%) apply vehicle-specific rates that differ from their general sales tax. Enter your ZIP code in the <strong>car payment calculator with tax</strong> field above to estimate your state-level rate. The tool folds tax into the loan amount for a more realistic <strong>monthly payment</strong> estimate.</p>
+
+<h2>Car Payment Amortization Schedule</h2>
+
+<p>The <strong>amortization</strong> schedule breaks every payment into principal and interest components. The stacked area chart visualizes how interest shrinks over time while principal grows — the same data lenders use internally, presented clearly. Toggle Annual or Monthly views for the detail level you need.</p>
+
+<h3>Paying Off Your Car Loan Early</h3>
+
+<p>Making <strong>extra payments</strong> — even $50–100/month more — can shave months off your loan and save hundreds in interest. Some buyers switch to <strong>bi-weekly</strong> payments for one extra full payment per year. Check with your lender about prepayment penalties before committing.</p>
+
+<h2>Reverse Car Payment Calculator: Start from Your Budget</h2>
+
+<p>Not everyone starts with a car in mind. If you know you can afford $400/month but need to find the right price range, switch to <strong>"I know my budget"</strong> mode. This reverse <strong>car payment calculator</strong> tells you the maximum vehicle price you can afford based on your rate, term, and down payment — a feature most car finance calculators don't offer.</p>
+
+<h2>Tips for Getting a Better Car Loan</h2>
+
+<h3>Get Pre-Approved First</h3>
+<p>Dealer financing is convenient but rarely cheapest. Get pre-approved through your bank or credit union, then let the dealer try to beat it.</p>
+
+<h3>Stick to 60 Months or Less</h3>
+<p>Longer terms are tempting when the <strong>car payment calculator</strong> shows a lower number, but 72–84 month loans often leave you owing more than the car is worth — that's called being "underwater."</p>
+
+<h3>Budget Beyond the Payment</h3>
+<p>Your <strong>car payment</strong> is only part of ownership costs. Insurance, fuel, and maintenance add up. Keep total transportation costs under 15–20% of your take-home pay.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>How accurate is this car payment calculator?</h3>
+<p>It uses the exact amortization formula banks use. Results match to the cent for the inputs you provide. Actual payments may differ slightly based on dealer fees and your lender's rounding.</p>
+
+<h3>Can I use this for a car lease?</h3>
+<p>This tool is built for purchase loans. <strong>Car lease</strong> payments are calculated differently since you only pay for depreciation over the lease term. We may add a dedicated lease calculator in the future.</p>
+
+<h3>Does the car payment calculator work for Canada?</h3>
+<p>The loan math is identical worldwide. The ZIP-based tax lookup covers U.S. states, but Canadian users from <strong>Ontario</strong>, <strong>BC</strong>, or elsewhere can leave ZIP blank and type their province's HST/GST rate directly into the tax rate field.</p>
+
+<h3>What's a good monthly car payment?</h3>
+<p>Aim to keep your car payment below 10–15% of monthly take-home pay. On $4,000/month income, that means $400–600. Use this <strong>car payment calculator</strong> to test different scenarios until you find a comfortable range.</p>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="f-brand" style="display:flex;align-items:center;justify-content:center;gap:8px;">
+    <svg class="logo-mark" width="36" height="24" viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#E8725A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 32 L9 20 Q10 15 15 13 L28 9 Q33 8 38 10 L48 15 Q52 17 53 21 L57 32"/>
+        <line x1="3" y1="32" x2="59" y2="32"/>
+        <circle cx="16" cy="32" r="6"/><circle cx="16" cy="32" r="2.5"/>
+        <circle cx="48" cy="32" r="6"/><circle cx="48" cy="32" r="2.5"/>
+        <path d="M20 13 L22 21 L32 21 L33 13"/>
+        <path d="M35 14 L36 21 L46 21 L47 16"/>
+      </g>
+      <circle cx="52" cy="10" r="9" fill="#2D5A3D" stroke="#FFF8F0" stroke-width="2"/>
+      <path d="M52 5.5 Q49.5 5.5 49.5 7.5 Q49.5 10 52 10 Q54.5 10 54.5 12 Q54.5 14.5 52 14.5" stroke="#FFF8F0" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="52" y1="4" x2="52" y2="16" stroke="#FFF8F0" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    Car Payment Calculator
+  </div>
+  Free car payment calculator — not financial advice. Consult your lender for exact terms.
+</div>
+
+<!-- Screen reader announcement (visually hidden, debounced) -->
+<div id="srAnnounce" aria-live="polite" aria-atomic="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"></div>
+
+<script>
+// Debounced screen reader announcement — prevents rapid-fire aria-live updates
+let srTimer = null;
+function announceResult(text) {
+  clearTimeout(srTimer);
+  srTimer = setTimeout(() => {
+    document.getElementById('srAnnounce').textContent = text;
+  }, 400);
+}
+
+// App state — all inputs tracked here, drives reactive update()
+const state = {
+  mode: 'forward',    // 'forward' = price→payment, 'reverse' = budget→max price
+  price: 35000,
+  budget: 500,
+  down: 5000,
+  tradeIn: 0,
+  condition: 'new',   // 'new' | 'used'
+  credit: 'excellent', // 'excellent' | 'good' | 'fair' | 'poor'
+  apr: 6.5,
+  term: 60,           // months
+  zip: '',
+  taxRate: 0,
+  taxManual: false,    // true once user edits tax rate directly
+  aprManual: false     // true once user edits APR directly
+};
+
+// Average APR by condition × credit tier (source: national auto loan averages)
+const APR_MAP = {
+  new:  { excellent: 6.5, good: 7.9, fair: 11.5, poor: 14.5 },
+  used: { excellent: 8.0, good: 9.5, fair: 13.5, poor: 17.5 }
+};
+
+// State-level vehicle sales/excise tax rates keyed by 2-digit ZIP prefix
+// Covers all 50 states + DC + PR. Uses vehicle-specific rates where states
+// charge differently from general sales tax (VA, NC, GA, OK, SD, MN, NM, MS).
+// Where a prefix spans two states, the dominant state's rate is used.
+const STATE_TAX = {
+  '00':11.5,  // PR (IVU)
+  '01':6.25,  // MA
+  '02':6.25,  // MA (028-029 = RI 7%, MA dominates)
+  '03':0,     // NH
+  '04':5.5,   // ME
+  '05':6,     // VT
+  '06':6.35,  // CT
+  '07':6.625, // NJ
+  '08':6.625, // NJ
+  '09':6.625, // NJ / Military APO
+  '10':4,     // NY (state portion only)
+  '11':4,     // NY
+  '12':4,     // NY
+  '13':4,     // NY
+  '14':4,     // NY
+  '15':6,     // PA
+  '16':6,     // PA
+  '17':6,     // PA
+  '18':6,     // PA
+  '19':6,     // PA (190-196) / DE 0% (197-199, PA dominates)
+  '20':6,     // DC 6% / MD 6%
+  '21':6,     // MD
+  '22':4.15,  // VA (motor vehicle sales tax)
+  '23':4.15,  // VA
+  '24':4.15,  // VA
+  '25':6,     // WV
+  '26':6,     // WV
+  '27':3,     // NC (highway use tax)
+  '28':3,     // NC
+  '29':5,     // SC (capped at $500)
+  '30':6.6,   // GA (Title Ad Valorem Tax)
+  '31':6.6,   // GA
+  '32':6,     // FL
+  '33':6,     // FL
+  '34':6,     // FL
+  '35':2,     // AL (state only; locals add significantly)
+  '36':2,     // AL
+  '37':7,     // TN
+  '38':7,     // TN (380-385) / MS (386-389, TN dominates)
+  '39':5,     // MS (vehicle rate, not 7% general)
+  '40':6,     // KY
+  '41':6,     // KY
+  '42':6,     // KY
+  '43':5.75,  // OH
+  '44':5.75,  // OH
+  '45':5.75,  // OH
+  '46':7,     // IN
+  '47':7,     // IN
+  '48':6,     // MI
+  '49':6,     // MI
+  '50':5,     // IA
+  '51':5,     // IA
+  '52':5,     // IA
+  '53':5,     // WI
+  '54':5,     // WI
+  '55':6.5,   // MN (motor vehicle sales tax)
+  '56':6.5,   // MN
+  '57':4,     // SD (motor vehicle excise tax)
+  '58':5,     // ND
+  '59':0,     // MT
+  '60':6.25,  // IL
+  '61':6.25,  // IL
+  '62':6.25,  // IL
+  '63':4.225, // MO
+  '64':4.225, // MO
+  '65':4.225, // MO
+  '66':6.5,   // KS
+  '67':6.5,   // KS
+  '68':5.5,   // NE
+  '69':5.5,   // NE
+  '70':4.45,  // LA
+  '71':4.45,  // LA
+  '72':6.5,   // AR
+  '73':3.25,  // OK (motor vehicle excise tax)
+  '74':3.25,  // OK
+  '75':6.25,  // TX
+  '76':6.25,  // TX
+  '77':6.25,  // TX
+  '78':6.25,  // TX
+  '79':6.25,  // TX
+  '80':2.9,   // CO
+  '81':2.9,   // CO
+  '82':4,     // WY
+  '83':6,     // ID
+  '84':4.85,  // UT (state portion)
+  '85':5.6,   // AZ
+  '86':5.6,   // AZ
+  '87':4,     // NM (motor vehicle excise tax)
+  '88':4,     // NM (880-884) / TX edge
+  '89':6.85,  // NV
+  '90':7.25,  // CA (state rate)
+  '91':7.25,  // CA
+  '92':7.25,  // CA
+  '93':7.25,  // CA
+  '94':7.25,  // CA
+  '95':7.25,  // CA
+  '96':7.25,  // CA (960-961) / HI 4% (967-968, CA dominates)
+  '97':0,     // OR
+  '98':6.5,   // WA
+  '99':6.5    // WA (990-994) / AK 0% (995-999, WA dominates)
+};
+
+function estimateTax(zip) {
+  if (!zip || zip.length < 2) return 0;
+  const prefix = zip.substring(0, 2);
+  return (prefix in STATE_TAX) ? STATE_TAX[prefix] : 0;
+}
+
+// Formatting helpers
+function fmt(n)  { return n.toLocaleString('en-US', { minimumFractionDigits:0, maximumFractionDigits:0 }); }
+function fmtD(n) { return n.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits:2 }); }
+
+// Input parsing — clamp to safe ranges
+function parseMoney(str) {
+  return Math.min(Math.max(parseFloat(String(str).replace(/[^0-9.]/g,'')) || 0, 0), 10000000);
+}
+
+// Core loan math: M = P × r(1+r)^n / ((1+r)^n − 1)
+function calcPayment(principal, aprPercent, months) {
+  if (principal <= 0 || months <= 0) return { monthly:0, totalInterest:0, total:0 };
+  if (aprPercent === 0) return { monthly: principal/months, totalInterest:0, total: principal };
+  const r = (aprPercent/100) / 12;
+  const monthly = principal * r * Math.pow(1+r, months) / (Math.pow(1+r, months) - 1);
+  return { monthly, totalInterest: monthly*months - principal, total: monthly*months };
+}
+
+// Reverse: given monthly payment, solve for max principal
+function calcPrincipalFromPayment(monthly, aprPercent, months) {
+  if (monthly <= 0 || months <= 0) return 0;
+  if (aprPercent === 0) return monthly * months;
+  const r = (aprPercent/100) / 12;
+  return monthly * (Math.pow(1+r, months) - 1) / (r * Math.pow(1+r, months));
+}
+
+// Build month-by-month amortization schedule
+function getAmortization(principal, aprPercent, months) {
+  const schedule = [];
+  if (principal <= 0 || months <= 0) return schedule;
+  const r = (aprPercent/100) / 12;
+  const payment = calcPayment(principal, aprPercent, months).monthly;
+  let balance = principal;
+  for (let i = 1; i <= months; i++) {
+    const interest = balance * (aprPercent === 0 ? 0 : r);
+    const princ = payment - interest;
+    balance = Math.max(0, balance - princ);
+    schedule.push({ month:i, payment, principal:princ, interest, balance });
+  }
+  return schedule;
+}
+
+// Draw stacked area chart: principal (green) + interest (coral) over loan life
+function drawAmortChart(loanAmount) {
+  const svg = document.getElementById('amortChart');
+  const schedule = getAmortization(loanAmount, state.apr, state.term);
+  if (!schedule.length) { svg.innerHTML = ''; return; }
+
+  const WIDTH = 700, HEIGHT = 240, PAD_TOP = 18, PAD_BOTTOM = 28;
+  const chartHeight = HEIGHT - PAD_TOP - PAD_BOTTOM;
+  const maxPayment = schedule[0].payment;
+  const count = schedule.length;
+
+  // Build principal area path (bottom layer)
+  let principalPath = `M 0 ${PAD_TOP + chartHeight}`;
+  const points = [];
+  for (let i = 0; i < count; i++) {
+    const x = (i / (count-1 || 1)) * WIDTH;
+    const princH = (schedule[i].principal / maxPayment) * chartHeight;
+    const intH   = (schedule[i].interest / maxPayment) * chartHeight;
+    principalPath += ` L ${x.toFixed(1)} ${(PAD_TOP + chartHeight - princH).toFixed(1)}`;
+    points.push({ x, yInterest: PAD_TOP + chartHeight - princH - intH, yPrincipal: PAD_TOP + chartHeight - princH });
+  }
+  principalPath += ` L ${WIDTH} ${PAD_TOP + chartHeight} Z`;
+
+  // Build interest area path (top layer)
+  let interestPath = `M ${points[0].x.toFixed(1)} ${points[0].yPrincipal.toFixed(1)}`;
+  for (let i = 0; i < points.length; i++) interestPath += ` L ${points[i].x.toFixed(1)} ${points[i].yInterest.toFixed(1)}`;
+  for (let i = points.length-1; i >= 0; i--) interestPath += ` L ${points[i].x.toFixed(1)} ${points[i].yPrincipal.toFixed(1)}`;
+  interestPath += ' Z';
+
+  // X-axis year labels
+  const totalYears = Math.ceil(state.term / 12);
+  let xLabels = '';
+  for (let y = 0; y <= totalYears; y++) {
+    const mo = y * 12;
+    if (mo > state.term) break;
+    xLabels += `<text x="${((mo/(count-1||1))*WIDTH).toFixed(1)}" y="${HEIGHT-5}" fill="#9B8E82" font-size="10" text-anchor="middle" font-family="Outfit,sans-serif">${y === 0 ? 'Start' : 'Yr '+y}</text>`;
+  }
+
+  // Invisible hover rects for tooltip
+  const sliceW = WIDTH / count;
+  let hoverRects = '';
+  for (let i = 0; i < count; i++) {
+    hoverRects += `<rect x="${Math.max(0,(i/(count-1||1))*WIDTH - sliceW/2).toFixed(1)}" y="${PAD_TOP}" width="${sliceW.toFixed(1)}" height="${chartHeight}" fill="transparent" data-idx="${i}" class="chr"/>`;
+  }
+
+  svg.innerHTML = `<defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2D5A3D" stop-opacity="0.5"/><stop offset="100%" stop-color="#2D5A3D" stop-opacity="0.06"/></linearGradient><linearGradient id="ig" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E8725A" stop-opacity="0.5"/><stop offset="100%" stop-color="#E8725A" stop-opacity="0.06"/></linearGradient></defs><path d="${principalPath}" fill="url(#pg)"/><path d="${interestPath}" fill="url(#ig)"/><line x1="0" y1="${PAD_TOP+chartHeight}" x2="${WIDTH}" y2="${PAD_TOP+chartHeight}" stroke="#E8DDD2" stroke-width="1"/>${xLabels}${hoverRects}`;
+
+  // Chart tooltip events
+  const tooltip = document.getElementById('chartTooltip');
+  const chartWrap = document.getElementById('chartWrap');
+  svg.querySelectorAll('.chr').forEach(rect => {
+    rect.addEventListener('mouseenter', e => {
+      const s = schedule[parseInt(e.target.dataset.idx)];
+      document.getElementById('ctTitle').textContent = 'Month ' + s.month;
+      document.getElementById('ctPrincipal').textContent = '$' + fmtD(s.principal);
+      document.getElementById('ctInterest').textContent = '$' + fmtD(s.interest);
+      document.getElementById('ctBalance').textContent = '$' + fmt(Math.round(s.balance));
+      tooltip.classList.add('show');
+    });
+    rect.addEventListener('mousemove', e => {
+      const wr = chartWrap.getBoundingClientRect();
+      let left = e.clientX - wr.left + 12, top = e.clientY - wr.top - 40;
+      if (left + 180 > wr.width) left -= 200;
+      if (top < 0) top = 10;
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+    });
+    rect.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+  });
+}
+
+// Main reactive update — recalculates everything from state and repaints UI
+function update() {
+  let price, loanAmt, res;
+
+  // --- Calculate loan amount based on mode ---
+  if (state.mode === 'forward') {
+    price = state.price;
+    const down = Math.min(state.down, price);
+    const trade = Math.min(state.tradeIn, price - down);
+    const taxAmt = state.taxRate > 0 ? price * state.taxRate / 100 : 0;
+    const cashCovers = state.down + state.tradeIn >= price;
+    loanAmt = cashCovers ? 0 : Math.max(0, price - down - trade + taxAmt);
+    res = calcPayment(loanAmt, state.apr, state.term);
+
+    document.getElementById('monthlyAmount').textContent = '$' + fmt(Math.round(res.monthly));
+    document.getElementById('stickyAmount').textContent = '$' + fmt(Math.round(res.monthly));
+    document.getElementById('termLabel').textContent = state.term;
+    document.getElementById('stickyLabel').textContent = 'Est. Payment';
+    document.getElementById('stickyPer').textContent = '/mo';
+    announceResult('Estimated monthly payment: $' + fmt(Math.round(res.monthly)) + ' for ' + state.term + ' months');
+  } else {
+    // Reverse mode: solve for max price from monthly budget
+    const maxLoan = calcPrincipalFromPayment(state.budget, state.apr, state.term);
+    const taxMultiplier = state.taxRate > 0 ? (1 + state.taxRate / 100) : 1;
+    price = Math.max(0, (maxLoan + state.down + state.tradeIn) / taxMultiplier);
+    const down = Math.min(state.down, price);
+    const trade = Math.min(state.tradeIn, price - down);
+    const taxAmt = state.taxRate > 0 ? price * state.taxRate / 100 : 0;
+    loanAmt = Math.max(0, price - down - trade + taxAmt);
+    res = calcPayment(loanAmt, state.apr, state.term);
+
+    document.getElementById('reversePrice').textContent = '$' + fmt(Math.round(price));
+    document.getElementById('reverseBudget').textContent = '$' + fmt(state.budget);
+    document.getElementById('stickyAmount').textContent = '$' + fmt(Math.round(price));
+    document.getElementById('stickyLabel').textContent = 'Max Price';
+    document.getElementById('stickyPer').textContent = '';
+    announceResult('Maximum vehicle price: $' + fmt(Math.round(price)) + ' on $' + fmt(state.budget) + ' per month budget');
+  }
+
+  // --- Pulse animation on result box ---
+  const monthlyBox = document.getElementById('monthlyDisplay');
+  monthlyBox.classList.remove('updating'); void monthlyBox.offsetWidth; monthlyBox.classList.add('updating');
+
+  // --- Principal vs interest ratio bar ---
+  const totalPaid = res.total || 1;
+  const principalPercent = (loanAmt / totalPaid * 100).toFixed(0);
+  const interestPercent = (res.totalInterest / totalPaid * 100).toFixed(0);
+  document.getElementById('principalSeg').style.width = principalPercent + '%';
+  document.getElementById('interestSeg').style.width = interestPercent + '%';
+  document.getElementById('principalPct').textContent = principalPercent + '%';
+  document.getElementById('interestPct').textContent = interestPercent + '%';
+
+  // --- Breakdown panel ---
+  const taxAmt = state.taxRate > 0 ? price * state.taxRate / 100 : 0;
+  document.getElementById('brkPrice').textContent = '$' + fmt(Math.round(price));
+  document.getElementById('brkDown').textContent = '−$' + fmt(Math.min(state.down, price));
+  document.getElementById('brkTrade').textContent = '−$' + fmt(Math.min(state.tradeIn, price));
+  if (state.taxRate > 0) {
+    document.getElementById('taxRow').style.display = '';
+    document.getElementById('brkTaxRate').textContent = state.taxRate;
+    document.getElementById('brkTax').textContent = '+$' + fmt(Math.round(taxAmt));
+  } else {
+    document.getElementById('taxRow').style.display = 'none';
+  }
+  document.getElementById('brkLoan').textContent = '$' + fmt(Math.round(loanAmt));
+  document.getElementById('brkInterest').textContent = '$' + fmt(Math.round(res.totalInterest));
+  document.getElementById('brkTotal').textContent = '$' + fmt(Math.round(res.total));
+
+  // --- Down payment slider sync ---
+  const sliderMax = state.mode === 'forward' ? Math.max(state.price, 1) : Math.max(Math.round(price), 1);
+  const dsl = document.getElementById('downSlider');
+  dsl.max = sliderMax; dsl.value = state.down;
+  dsl.setAttribute('aria-valuemax', sliderMax); dsl.setAttribute('aria-valuenow', state.down);
+  document.getElementById('downPercent').textContent = price > 0 ? (state.down / price * 100).toFixed(1) + '%' : '0%';
+
+  // --- Validation warnings ---
+  const warnIcon = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+
+  // Price warning
+  const priceWarn = document.getElementById('priceWarning');
+  if (state.mode === 'forward' && state.price <= 0) {
+    priceWarn.innerHTML = warnIcon + ' Please enter a vehicle price to see your estimated payment.';
+    priceWarn.style.display = 'flex';
+  } else { priceWarn.style.display = 'none'; }
+
+  // Budget warning
+  const budgetWarn = document.getElementById('budgetWarning');
+  if (state.mode === 'reverse' && state.budget <= 0) {
+    budgetWarn.innerHTML = warnIcon + ' Please enter a monthly budget to calculate your max vehicle price.';
+    budgetWarn.style.display = 'flex';
+  } else { budgetWarn.style.display = 'none'; }
+
+  // Down payment warning
+  const downWarn = document.getElementById('downWarning');
+  const downPctLabel = document.getElementById('downPercent');
+  if (state.mode === 'forward' && state.down > state.price && state.price > 0) {
+    downWarn.innerHTML = warnIcon + ' Down payment exceeds vehicle price. Loan amount is $0.';
+    downWarn.className = 'field-warning error'; downWarn.style.display = 'flex';
+    downPctLabel.classList.add('warning');
+  } else if (state.mode === 'forward' && state.price > 0 && (state.down + state.tradeIn) > state.price) {
+    downWarn.innerHTML = warnIcon + ' Down payment + trade-in exceeds vehicle price.';
+    downWarn.className = 'field-warning'; downWarn.style.display = 'flex';
+    downPctLabel.classList.remove('warning');
+  } else { downWarn.style.display = 'none'; downPctLabel.classList.remove('warning'); }
+
+  // APR warning
+  const aprWarn = document.getElementById('aprWarning');
+  const rawAPR = parseFloat(document.getElementById('apr').value) || 0;
+  if (rawAPR > 30) {
+    aprWarn.innerHTML = warnIcon + ' APR capped at 30%. Most auto loans range from 4%–18%.';
+    aprWarn.style.display = 'flex';
+  } else if (rawAPR > 20) {
+    aprWarn.innerHTML = warnIcon + ' Very high APR — consider improving credit or shopping for better rates.';
+    aprWarn.style.display = 'flex';
+  } else { aprWarn.style.display = 'none'; }
+
+  // --- Refresh sub-sections ---
+  updateComparison(loanAmt);
+  drawAmortChart(loanAmt);
+  updateAmortization(loanAmt);
+}
+
+// Rebuild the 24/36/48/60/72/84 month comparison table
+function updateComparison(loanAmount) {
+  const terms = [24, 36, 48, 60, 72, 84];
+  const tbody = document.querySelector('#compTable tbody');
+  tbody.innerHTML = '';
+  document.getElementById('compColTwo').textContent = state.mode === 'reverse' ? 'Max Price' : 'Monthly';
+
+  terms.forEach(t => {
+    const row = document.createElement('tr');
+    if (t === state.term) row.className = 'active-row';
+    row.style.cursor = 'pointer';
+
+    if (state.mode === 'reverse') {
+      const maxLoan = calcPrincipalFromPayment(state.budget, state.apr, t);
+      const taxMul = state.taxRate > 0 ? (1 + state.taxRate / 100) : 1;
+      const p = Math.max(0, (maxLoan + state.down + state.tradeIn) / taxMul);
+      const d = Math.min(state.down, p);
+      const tr = Math.min(state.tradeIn, p - d);
+      const tx = state.taxRate > 0 ? p * state.taxRate / 100 : 0;
+      const la = Math.max(0, p - d - tr + tx);
+      const r = calcPayment(la, state.apr, t);
+      row.innerHTML = `<td style="font-family:var(--body);font-weight:500">${t} mo</td><td>$${fmt(Math.round(p))}</td><td>$${fmt(Math.round(r.totalInterest))}</td><td>$${fmt(Math.round(r.total))}</td>`;
+    } else {
+      const r = calcPayment(loanAmount, state.apr, t);
+      row.innerHTML = `<td style="font-family:var(--body);font-weight:500">${t} mo</td><td>$${fmt(Math.round(r.monthly))}</td><td>$${fmt(Math.round(r.totalInterest))}</td><td>$${fmt(Math.round(r.total))}</td>`;
+    }
+
+    row.addEventListener('click', () => {
+      state.term = t;
+      document.querySelectorAll('#termGroup button').forEach(b => {
+        b.classList.toggle('active', parseInt(b.dataset.val) === t);
+        b.setAttribute('aria-pressed', parseInt(b.dataset.val) === t ? 'true' : 'false');
+      });
+      update();
+    });
+    tbody.appendChild(row);
+  });
+}
+
+let amortView = 'annual';
+
+// Rebuild the amortization table (annual or monthly view)
+function updateAmortization(loanAmount) {
+  const schedule = getAmortization(loanAmount, state.apr, state.term);
+  const tbody = document.querySelector('#amortTable tbody');
+  tbody.innerHTML = '';
+
+  if (amortView === 'annual') {
+    // Aggregate by year
+    const yearData = {};
+    schedule.forEach(s => {
+      const yr = Math.ceil(s.month / 12);
+      if (!yearData[yr]) yearData[yr] = { payment:0, principal:0, interest:0, balance:0 };
+      yearData[yr].payment   += s.payment;
+      yearData[yr].principal += s.principal;
+      yearData[yr].interest  += s.interest;
+      yearData[yr].balance    = s.balance;
+    });
+    Object.entries(yearData).forEach(([yr, d]) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>Year ${yr}</td><td>$${fmtD(d.payment)}</td><td>$${fmtD(d.principal)}</td><td>$${fmtD(d.interest)}</td><td>$${fmtD(d.balance)}</td>`;
+      tbody.appendChild(row);
+    });
+  } else {
+    // Monthly detail with year separators
+    schedule.forEach(s => {
+      if (s.month > 1 && (s.month - 1) % 12 === 0) {
+        const sep = document.createElement('tr');
+        sep.className = 'year-sep';
+        sep.innerHTML = `<td colspan="5">— Year ${Math.ceil(s.month / 12)} —</td>`;
+        tbody.appendChild(sep);
+      }
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>Month ${s.month}</td><td>$${fmtD(s.payment)}</td><td>$${fmtD(s.principal)}</td><td>$${fmtD(s.interest)}</td><td>$${fmtD(s.balance)}</td>`;
+      tbody.appendChild(row);
+    });
+  }
+}
+
+// Events
+// Wire money inputs: parse → format with commas → recalc
+function wireInput(id, key) {
+  const el = document.getElementById(id);
+  el.addEventListener('input', () => {
+    state[key] = parseMoney(el.value);
+    if (key !== 'apr') {
+      const v = parseMoney(el.value);
+      const cursorPos = el.selectionStart;
+      const oldLen = el.value.length;
+      el.value = v > 0 ? fmt(v) : '';
+      const newLen = el.value.length;
+      el.setSelectionRange(cursorPos + (newLen - oldLen), cursorPos + (newLen - oldLen));
+    }
+    update();
+  });
+}
+wireInput('price', 'price');
+wireInput('downPayment', 'down');
+wireInput('tradeIn', 'tradeIn');
+wireInput('budget', 'budget');
+
+// APR input — clamp to 0-30%, mark as manually set
+document.getElementById('apr').addEventListener('input', e => {
+  const raw = parseFloat(e.target.value) || 0;
+  state.apr = Math.min(Math.max(raw, 0), 30);
+  state.aprManual = true;
+  document.getElementById('aprSource').textContent = 'manually set';
+  update();
+});
+document.getElementById('apr').addEventListener('blur', e => {
+  if (state.apr !== parseFloat(e.target.value)) e.target.value = state.apr;
+});
+
+// Down payment slider
+const downSlider = document.getElementById('downSlider');
+downSlider.addEventListener('input', e => {
+  state.down = parseInt(e.target.value);
+  document.getElementById('downPayment').value = fmt(state.down);
+  update();
+});
+downSlider.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+    e.preventDefault();
+    state.down = Math.max(0, state.down - 250);
+  } else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    state.down = Math.min(parseInt(downSlider.max), state.down + 250);
+  } else return;
+  downSlider.value = state.down;
+  document.getElementById('downPayment').value = fmt(state.down);
+  update();
+});
+
+// Down payment +/- buttons
+document.getElementById('downMinus').addEventListener('click', () => {
+  state.down = Math.max(0, state.down - 500);
+  downSlider.value = state.down;
+  document.getElementById('downPayment').value = fmt(state.down);
+  update();
+});
+document.getElementById('downPlus').addEventListener('click', () => {
+  state.down = Math.min(parseInt(downSlider.max) || 200000, state.down + 500);
+  downSlider.value = state.down;
+  document.getElementById('downPayment').value = fmt(state.down);
+  update();
+});
+
+// Helper: wire a button group with aria-pressed sync
+function wireButtonGroup(selector, onSelect) {
+  document.querySelectorAll(selector).forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll(selector).forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      onSelect(btn);
+      update();
+    });
+  });
+}
+
+// Vehicle condition toggle
+wireButtonGroup('#conditionToggle button', btn => {
+  state.condition = btn.dataset.val;
+  if (!state.aprManual) {
+    state.apr = APR_MAP[state.condition][state.credit];
+    document.getElementById('apr').value = state.apr;
+    document.getElementById('aprSource').textContent = 'auto from credit score';
+  }
+});
+
+// Credit score selector
+wireButtonGroup('#creditGroup button', btn => {
+  state.credit = btn.dataset.val;
+  state.aprManual = false;
+  state.apr = APR_MAP[state.condition][state.credit];
+  document.getElementById('apr').value = state.apr;
+  document.getElementById('aprSource').textContent = 'auto from credit score';
+});
+
+// Loan term selector
+wireButtonGroup('#termGroup button', btn => {
+  state.term = parseInt(btn.dataset.val);
+});
+
+// ZIP code → auto-fill tax rate (unless user has manually overridden)
+document.getElementById('zip').addEventListener('input', e => {
+  const z = e.target.value.replace(/\D/g, '').substring(0, 5);
+  e.target.value = z;
+  state.zip = z;
+  const taxInfo = document.getElementById('taxInfo');
+
+  if (z.length === 5) {
+    const autoRate = estimateTax(z);
+    if (!state.taxManual) {
+      state.taxRate = autoRate;
+      document.getElementById('taxRateInput').value = autoRate > 0 ? autoRate : '';
+      document.getElementById('taxSource').textContent = 'auto from ZIP';
+    }
+    if (autoRate === 0) {
+      taxInfo.textContent = 'No state vehicle sales tax for this ZIP.';
+    } else {
+      taxInfo.textContent = state.taxManual
+        ? `State rate is ${autoRate}% — you entered a custom rate`
+        : `State vehicle tax: ${autoRate}% (local taxes may add more)`;
+    }
+  } else {
+    if (!state.taxManual) {
+      state.taxRate = 0;
+      document.getElementById('taxRateInput').value = '';
+    }
+    taxInfo.textContent = z.length > 0 ? 'Enter full 5-digit ZIP for tax estimate' : '';
+  }
+  update();
+});
+
+// Tax rate manual input — overrides ZIP auto-fill
+document.getElementById('taxRateInput').addEventListener('input', e => {
+  const raw = parseFloat(e.target.value) || 0;
+  state.taxRate = Math.min(Math.max(raw, 0), 15);
+  state.taxManual = raw > 0;
+  document.getElementById('taxSource').textContent = state.taxManual ? 'manually set' : 'enter ZIP or set manually';
+  const taxInfo = document.getElementById('taxInfo');
+  if (state.taxManual) {
+    taxInfo.textContent = state.zip.length === 5
+      ? `Custom rate applied (state rate for this ZIP: ${estimateTax(state.zip)}%)`
+      : 'Custom tax rate applied.';
+  } else {
+    taxInfo.textContent = '';
+  }
+  update();
+});
+
+// Clearing the tax rate input resets to auto mode
+document.getElementById('taxRateInput').addEventListener('blur', e => {
+  if (e.target.value === '' || e.target.value === '0') {
+    state.taxManual = false;
+    // Re-derive from ZIP if available
+    if (state.zip.length === 5) {
+      state.taxRate = estimateTax(state.zip);
+      e.target.value = state.taxRate > 0 ? state.taxRate : '';
+      document.getElementById('taxSource').textContent = 'auto from ZIP';
+      document.getElementById('taxInfo').textContent = state.taxRate > 0
+        ? `State vehicle tax: ${state.taxRate}% (local taxes may add more)`
+        : 'No state vehicle sales tax for this ZIP.';
+    } else {
+      state.taxRate = 0;
+      document.getElementById('taxSource').textContent = 'enter ZIP or set manually';
+      document.getElementById('taxInfo').textContent = '';
+    }
+    update();
+  }
+});
+
+// Mode toggle (forward ↔ reverse)
+wireButtonGroup('#modeToggle button', btn => {
+  state.mode = btn.dataset.mode;
+  const isReverse = state.mode === 'reverse';
+  document.getElementById('fieldPrice').classList.toggle('hidden', isReverse);
+  document.getElementById('fieldBudget').classList.toggle('hidden', !isReverse);
+  document.getElementById('forwardResult').classList.toggle('hidden', isReverse);
+  document.getElementById('reverseResult').classList.toggle('hidden', !isReverse);
+  document.getElementById('formTitle').textContent = isReverse ? 'Budget & Loan Details' : 'Vehicle & Loan Details';
+});
+
+// Amortization accordion + view toggle
+document.getElementById('amortHeader').addEventListener('click', () => {
+  document.getElementById('amortHeader').classList.toggle('open');
+  document.getElementById('amortBody').classList.toggle('open');
+});
+document.getElementById('amortYearBtn').addEventListener('click', () => {
+  amortView = 'annual';
+  document.getElementById('amortYearBtn').classList.add('active');
+  document.getElementById('amortMonthBtn').classList.remove('active');
+  update();
+});
+document.getElementById('amortMonthBtn').addEventListener('click', () => {
+  amortView = 'monthly';
+  document.getElementById('amortMonthBtn').classList.add('active');
+  document.getElementById('amortYearBtn').classList.remove('active');
+  update();
+});
+
+// Sticky bar visibility on scroll
+new IntersectionObserver(
+  ([e]) => { document.getElementById('stickyBar').classList.toggle('visible', !e.isIntersecting); },
+  { threshold: 0 }
+).observe(document.querySelector('.hero'));
+
+// Initial render
+update();
+</script>
+</body>
+</html>
