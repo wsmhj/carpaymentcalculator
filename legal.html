@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trust &amp; Transparency — Car Payment Calculator</title>
+<meta name="description" content="How carpaymentcalculator.app works: data sources, calculation methodology, privacy stance, disclaimer, and contact info.">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://carpaymentcalculator.app/legal.html">
+<link rel="alternate" hreflang="en" href="https://carpaymentcalculator.app/legal.html">
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="Car Payment Calculator">
+<meta property="og:title" content="Trust &amp; Transparency — Car Payment Calculator">
+<meta property="og:description" content="How carpaymentcalculator.app works: data sources, methodology, privacy stance, and contact info.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://carpaymentcalculator.app/legal.html">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://carpaymentcalculator.app/og-image.png">
+
+<!-- Organization Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Car Payment Calculator",
+  "alternateName": ["Car Loan Calculator", "Auto Loan Calculator"],
+  "url": "https://carpaymentcalculator.app/",
+  "logo": "https://carpaymentcalculator.app/favicon.svg",
+  "email": "hello@carpaymentcalculator.app",
+  "description": "Free, privacy-respecting, browser-based calculator for U.S. auto loan monthly payments with credit-tier APR estimates and state-aware vehicle tax handling.",
+  "foundingDate": "2026",
+  "knowsAbout": ["Auto loans", "Car payment calculation", "Vehicle sales tax", "Loan amortization"],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "hello@carpaymentcalculator.app",
+    "contactType": "customer support",
+    "availableLanguage": ["en"]
+  }
+}
+</script>
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #FFF8F0;
+  --warm: #FEF3E2;
+  --peach: #FFE8D6;
+  --coral: #E8725A;
+  --coral-light: #FFF0EC;
+  --coral-dark: #D45A42;
+  --forest: #2D5A3D;
+  --forest-light: #EAF2EC;
+  --navy: #1E2A3A;
+  --brown: #8B6F47;
+  --brown-light: #C4A97D;
+  --text: #2C2420;
+  --text-mid: #5C4F44;
+  --text-light: #9B8E82;
+  --border: #E8DDD2;
+  --border-dark: #D4C5B5;
+  --shadow: rgba(44,36,32,0.06);
+  --shadow-md: rgba(44,36,32,0.1);
+  --r: 16px;
+  --r-sm: 10px;
+  --r-lg: 24px;
+  --head: 'Fraunces', Georgia, serif;
+  --body: 'Outfit', -apple-system, sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--body);
+  background-color:var(--cream);
+  color:var(--text);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Header bar */
+.legal-header{
+  border-bottom:2px solid var(--border);
+  background:rgba(255,248,240,0.92);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  padding:14px 24px;
+  position:sticky;top:0;z-index:50;
+}
+.legal-header .brand{
+  display:inline-flex;align-items:center;gap:10px;
+  text-decoration:none;color:inherit;
+  font-family:var(--head);font-weight:800;
+  font-size:16px;letter-spacing:-0.3px;
+}
+.legal-header .brand:hover{color:var(--coral);}
+.legal-header .brand span{color:var(--coral);}
+.legal-header .brand em{color:var(--forest);font-style:normal;}
+
+/* Hero */
+.legal-hero{
+  text-align:center;
+  padding:64px 24px 36px;
+  border-bottom:2px dashed var(--border);
+  margin-bottom:24px;
+}
+.legal-hero h1{
+  font-family:var(--head);
+  font-size:clamp(34px,5vw,48px);
+  font-weight:800;
+  letter-spacing:-1px;
+  line-height:1.15;
+  margin-bottom:14px;
+  color:var(--text);
+}
+.legal-hero h1 em{font-style:italic;color:var(--coral);}
+.legal-hero p{
+  font-size:17px;color:var(--text-mid);
+  max-width:560px;margin:0 auto 18px;
+  line-height:1.6;
+}
+.last-updated{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--warm);
+  border:1.5px solid var(--border);
+  border-radius:50px;
+  padding:6px 14px;
+  font-size:12px;color:var(--text-mid);
+  font-weight:500;
+}
+.last-updated svg{stroke:var(--coral);}
+
+/* Container with optional ToC */
+.legal-container{
+  max-width:1100px;margin:0 auto;
+  padding:0 24px 56px;
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:48px;
+  align-items:start;
+}
+@media(max-width:900px){
+  .legal-container{grid-template-columns:1fr;gap:24px;}
+  .toc{position:static!important;}
+}
+
+/* ToC */
+.toc{
+  position:sticky;top:88px;
+  background:#fff;
+  border:2px solid var(--border);
+  border-radius:var(--r);
+  padding:18px 16px;
+  font-size:13px;
+}
+.toc-title{
+  font-family:var(--head);
+  font-weight:700;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  color:var(--text-light);
+  margin-bottom:10px;
+  padding-bottom:10px;
+  border-bottom:1.5px solid var(--border);
+}
+.toc a{
+  display:block;
+  padding:7px 8px;
+  color:var(--text-mid);
+  text-decoration:none;
+  border-radius:var(--r-sm);
+  margin-bottom:2px;
+  transition:all 0.15s;
+  font-weight:500;
+}
+.toc a:hover{background:var(--warm);color:var(--coral);}
+.toc a.active{background:var(--coral-light);color:var(--coral);font-weight:600;}
+
+/* Content */
+.legal-content{
+  max-width:720px;
+  font-size:15px;
+}
+.legal-content section{
+  background:#fff;
+  border:2px solid var(--border);
+  border-radius:var(--r-lg);
+  padding:36px 36px 32px;
+  margin-bottom:24px;
+  box-shadow:0 1px 3px var(--shadow);
+}
+@media(max-width:600px){
+  .legal-content section{padding:28px 22px;}
+}
+.section-head{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:20px;
+  padding-bottom:18px;
+  border-bottom:1.5px dashed var(--border);
+}
+.section-icon{
+  flex-shrink:0;
+  width:46px;height:46px;
+  background:var(--warm);
+  border:2px solid var(--border);
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+}
+.section-head h2{
+  font-family:var(--head);
+  font-size:26px;
+  font-weight:800;
+  letter-spacing:-0.5px;
+  color:var(--text);
+  line-height:1.2;
+}
+.legal-content h3{
+  font-family:var(--head);
+  font-size:17px;
+  font-weight:700;
+  margin-top:24px;
+  margin-bottom:10px;
+  color:var(--text);
+  line-height:1.3;
+}
+.legal-content h3:first-of-type{margin-top:8px;}
+.legal-content p{
+  font-size:15px;
+  color:var(--text-mid);
+  line-height:1.7;
+  margin-bottom:14px;
+}
+.legal-content strong{color:var(--text);font-weight:600;}
+.legal-content ul{
+  margin:8px 0 16px;
+  padding-left:0;
+  list-style:none;
+}
+.legal-content ul li{
+  font-size:14px;
+  color:var(--text-mid);
+  line-height:1.65;
+  padding:6px 0 6px 22px;
+  position:relative;
+}
+.legal-content ul li::before{
+  content:'';
+  position:absolute;
+  left:4px;top:14px;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--coral);
+  opacity:0.55;
+}
+.legal-content a{color:var(--coral);text-decoration:none;border-bottom:1.5px solid rgba(232,114,90,0.3);transition:border-color 0.15s;}
+.legal-content a:hover{border-bottom-color:var(--coral);}
+.legal-content code{
+  background:var(--warm);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:1px 7px;
+  font-family:'SF Mono', Monaco, Consolas, monospace;
+  font-size:13px;
+  color:var(--coral-dark);
+}
+.formula{
+  display:block;
+  background:var(--warm);
+  border:1.5px dashed var(--border-dark);
+  border-radius:var(--r-sm);
+  padding:14px 18px;
+  margin:14px 0 18px;
+  font-family:'SF Mono', Monaco, Consolas, monospace;
+  font-size:14px;
+  color:var(--text);
+  text-align:center;
+  letter-spacing:0.3px;
+}
+
+/* Callout boxes */
+.callout{
+  border-radius:var(--r-sm);
+  padding:14px 16px;
+  margin:14px 0;
+  font-size:14px;
+  line-height:1.6;
+  border:1.5px solid;
+}
+.callout.note{
+  background:var(--coral-light);
+  border-color:rgba(232,114,90,0.3);
+  color:var(--text-mid);
+}
+.callout.note strong{color:var(--coral-dark);}
+.callout.privacy{
+  background:var(--forest-light);
+  border-color:rgba(45,90,61,0.25);
+  color:var(--text-mid);
+}
+.callout.privacy strong{color:var(--forest);}
+
+/* Back link */
+.legal-back{
+  text-align:center;
+  margin:40px auto 32px;
+  padding:0 24px;
+}
+.legal-back a{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--coral);
+  color:#fff;
+  text-decoration:none;
+  font-family:var(--head);
+  font-weight:700;
+  font-size:15px;
+  padding:14px 28px;
+  border-radius:50px;
+  transition:all 0.2s;
+  box-shadow:0 2px 12px rgba(232,114,90,0.3);
+}
+.legal-back a:hover{background:var(--coral-dark);transform:translateY(-1px);}
+
+/* Footer */
+.legal-footer{
+  text-align:center;
+  padding:28px 24px;
+  font-size:12px;
+  color:var(--text-light);
+  background:var(--warm);
+  border-top:2px solid var(--border);
+}
+.legal-footer .links{margin-top:6px;}
+.legal-footer a{color:var(--text-mid);text-decoration:none;}
+.legal-footer a:hover{color:var(--coral);}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="legal-header">
+  <a href="/" class="brand">
+    <svg width="32" height="20" viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g stroke="#E8725A" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 32 L9 20 Q10 15 15 13 L28 9 Q33 8 38 10 L48 15 Q52 17 53 21 L57 32"/>
+        <line x1="3" y1="32" x2="59" y2="32"/>
+        <circle cx="16" cy="32" r="6"/><circle cx="16" cy="32" r="2.5"/>
+        <circle cx="48" cy="32" r="6"/><circle cx="48" cy="32" r="2.5"/>
+        <path d="M20 13 L22 21 L32 21 L33 13"/>
+        <path d="M35 14 L36 21 L46 21 L47 16"/>
+      </g>
+      <circle cx="52" cy="10" r="9" fill="#2D5A3D" stroke="#FFF8F0" stroke-width="2"/>
+      <path d="M52 5.5 Q49.5 5.5 49.5 7.5 Q49.5 10 52 10 Q54.5 10 54.5 12 Q54.5 14.5 52 14.5" stroke="#FFF8F0" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="52" y1="4" x2="52" y2="16" stroke="#FFF8F0" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    Car <span>Payment</span> Calculator
+  </a>
+</header>
+
+<!-- Hero -->
+<section class="legal-hero">
+  <h1>Trust &amp; <em>Transparency</em></h1>
+  <p>How this calculator works, where the numbers come from, what data it touches, and how to reach us.</p>
+  <div class="last-updated">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Last updated: April 28, 2026
+  </div>
+</section>
+
+<!-- Container -->
+<div class="legal-container">
+
+  <!-- Sticky ToC -->
+  <aside class="toc" aria-label="Table of contents">
+    <div class="toc-title">On this page</div>
+    <a href="#about">About</a>
+    <a href="#methodology">Methodology</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#disclaimer">Disclaimer</a>
+    <a href="#contact">Contact</a>
+  </aside>
+
+  <!-- Content -->
+  <main class="legal-content">
+
+    <!-- About -->
+    <section id="about">
+      <div class="section-head">
+        <div class="section-icon">
+          <svg width="26" height="18" viewBox="0 0 120 60" fill="none" stroke="#E8725A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 42 L20 28 Q22 22 28 20 L50 15 Q58 13 65 15 L85 22 Q92 25 95 30 L102 42"/>
+            <line x1="10" y1="42" x2="108" y2="42"/>
+            <circle cx="32" cy="42" r="8"/><circle cx="32" cy="42" r="3"/>
+            <circle cx="85" cy="42" r="8"/><circle cx="85" cy="42" r="3"/>
+            <path d="M38 20 L42 28 L58 28 L62 20"/>
+            <path d="M65 20 L68 28 L82 28 L85 22"/>
+          </svg>
+        </div>
+        <h2>About</h2>
+      </div>
+
+      <p>Car Payment Calculator is a free, no-signup web tool that estimates monthly auto loan payments. It runs entirely in your browser — there is no server, no account, no advertising, and no tracking.</p>
+
+      <p>The goal is a transparent calculator that <em>shows the math</em>: real-time updates as you type, credit-tier APR estimates, state-level vehicle tax handling, full amortization schedules, and side-by-side term comparisons (24 to 84 months). The tool also runs in reverse — enter a monthly budget and it returns the maximum vehicle price that fits.</p>
+
+      <p>This calculator is also commonly known as a <strong>car loan calculator</strong> or <strong>auto loan calculator</strong>. The math is identical across all three names; we use "Car Payment Calculator" because that's the search phrase most U.S. buyers type when trying to figure out what they can afford.</p>
+
+      <h3>Who built this</h3>
+      <p>Built and maintained by an independent developer. No corporate affiliation, no lender partnerships, no sponsored content (as of April 2026). If that ever changes, this page will be updated first.</p>
+
+      <h3>Coverage</h3>
+      <p>The amortization math works for any country and any currency. The ZIP-code-based vehicle tax lookup covers all 50 U.S. states plus the District of Columbia and Puerto Rico. Users in Canada, the U.K., or elsewhere can leave the ZIP field blank and enter their local tax rate manually — all other features still work.</p>
+    </section>
+
+    <!-- Methodology -->
+    <section id="methodology">
+      <div class="section-head">
+        <div class="section-icon">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none" stroke="#2D5A3D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="13" cy="13" r="8"/>
+            <line x1="19.5" y1="19.5" x2="27" y2="27"/>
+            <line x1="9" y1="13" x2="17" y2="13"/>
+            <line x1="13" y1="9" x2="13" y2="17"/>
+          </svg>
+        </div>
+        <h2>Methodology</h2>
+      </div>
+
+      <h3>Loan math</h3>
+      <p>The standard amortization formula used by U.S. banks and required for Truth in Lending Act disclosures:</p>
+      <code class="formula">M = P × r(1+r)<sup>n</sup> / ((1+r)<sup>n</sup> − 1)</code>
+      <p>Where <strong>M</strong> is the monthly payment, <strong>P</strong> is the principal (the financed amount, after down payment, trade-in, and applicable tax), <strong>r</strong> is the monthly interest rate (APR ÷ 12 ÷ 100), and <strong>n</strong> is the number of monthly payments. The reverse mode solves the same equation for P given M.</p>
+
+      <h3>APR estimates by credit tier</h3>
+      <p>The default APR shown when you select a credit tier (Excellent / Good / Fair / Poor) is a snapshot of national averages drawn from <a href="https://www.bankrate.com/loans/auto-loans/current-auto-loan-interest-rates/" rel="nofollow noopener">Bankrate Auto Loan Average Rate</a> and the <a href="https://www.experian.com/automotive/auto-finance-trends" rel="nofollow noopener">Experian State of the Automotive Finance Market</a> report.</p>
+
+      <p>These are <strong>reviewed quarterly</strong>; last reviewed April 2026. Your actual rate from any specific lender will depend on your full credit profile, the vehicle, the loan term, and current market conditions, and may differ by 1–4 percentage points in either direction. Always shop multiple quotes before signing.</p>
+
+      <h3>State vehicle tax rates</h3>
+      <p>The ZIP-to-state tax routing covers all 50 states, the District of Columbia, and Puerto Rico via a two-tier lookup: 2-digit ZIP prefix maps to the dominant state for that range, with 3-digit overrides for boundary ZIPs that fall into a different state (Rhode Island within Massachusetts prefixes, Delaware within Pennsylvania, Mississippi within Tennessee, Hawaii within California, Alaska within Washington).</p>
+
+      <p>Each state's rule is a small data structure containing the base rate, the trade-in credit policy, and any applicable flat tax cap. Sources cross-referenced from each state's department of revenue or DMV publications, plus the <a href="https://taxfoundation.org/" rel="nofollow noopener">Tax Foundation</a> annual sales tax compendium. Reviewed quarterly.</p>
+
+      <h3>Trade-in tax credit handling</h3>
+      <p>Most states reduce the taxable purchase amount by the trade-in value. This calculator models the following exceptions accurately:</p>
+      <ul>
+        <li><strong>No trade-in credit</strong>: California, Hawaii, Maryland, Virginia, District of Columbia, Puerto Rico — sales tax applies to the full purchase price regardless of trade-in.</li>
+        <li><strong>Partial credit (capped)</strong>: Illinois caps the credited trade-in amount at $10,000.</li>
+        <li><strong>Flat fee with cap</strong>: South Carolina charges a 5% Infrastructure Maintenance Fee capped at $500, with no trade-in deduction.</li>
+      </ul>
+
+      <h3>Known limitations</h3>
+      <p>This calculator deliberately does <em>not</em> model:</p>
+      <ul>
+        <li>County or city local sales tax (which can add 0.5–4% in major metros — NYC ≈ +4.9%, Chicago ≈ +4%, Los Angeles ≈ +2.5%, Seattle ≈ +3.6%)</li>
+        <li>Georgia's Title Ad Valorem Tax (TAVT) is approximated as a flat 6.6% sales tax; the real TAVT is based on the vehicle's fair market value and applies once at purchase</li>
+        <li>Delaware's 4.25% motor vehicle document fee (Delaware has no sales tax)</li>
+        <li>Lender-specific origination fees, dealer doc fees, gap insurance, or extended warranties</li>
+        <li>Lease scenarios (this tool is for <em>purchase loans</em> only; lease math depreciates the vehicle differently)</li>
+        <li>Military, nonprofit, disabled-veteran, or other special-status exemptions that some states offer</li>
+      </ul>
+
+      <div class="callout note">
+        <strong>For users in major metros</strong>: the most accurate number comes from looking up your actual combined rate (search "<em>[your city] vehicle sales tax</em>") and entering it manually in the tax rate field. The state base rate shown by the ZIP lookup is a starting point, not a final figure.
+      </div>
+
+      <h3>Update cadence</h3>
+      <p>Quarterly review of all APR and tax tables. Bug fixes affecting calculation accuracy are deployed immediately upon report. The Last updated date at the top of this page reflects the most recent change.</p>
+    </section>
+
+    <!-- Privacy -->
+    <section id="privacy">
+      <div class="section-head">
+        <div class="section-icon">
+          <svg width="22" height="26" viewBox="0 0 24 28" fill="none" stroke="#2D5A3D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2 L3 6 V13 Q3 21 12 26 Q21 21 21 13 V6 Z"/>
+            <polyline points="8 14 11 17 16 11"/>
+          </svg>
+        </div>
+        <h2>Privacy</h2>
+      </div>
+
+      <div class="callout privacy">
+        <strong>Your inputs never leave your browser.</strong> This calculator runs entirely client-side. When you type a vehicle price, ZIP, or interest rate, those values are processed by JavaScript inside your own browser tab. There is no backend server. There are no API calls related to your inputs.
+      </div>
+
+      <h3>What we don't collect</h3>
+      <ul>
+        <li>No email address — there is no signup</li>
+        <li>No name, phone number, or other personal identifier</li>
+        <li>No account or login system</li>
+        <li>No session tracking, no fingerprinting, no behavioral profiling</li>
+        <li>No record of your ZIP, vehicle price, credit tier, or any other input</li>
+      </ul>
+
+      <h3>What we don't store</h3>
+      <ul>
+        <li>No cookies are set by this site</li>
+        <li>No browser <code>localStorage</code> or <code>sessionStorage</code> is used</li>
+        <li>No analytics SDK is loaded (as of April 2026)</li>
+      </ul>
+
+      <h3>Third parties</h3>
+      <p>The only external resource this page loads is <strong>Google Fonts</strong> (<code>fonts.googleapis.com</code>, <code>fonts.gstatic.com</code>) for typography. Google may receive your IP address and User-Agent string when these font files are fetched, per <a href="https://policies.google.com/privacy" rel="nofollow noopener">Google's privacy policy</a>. We don't currently self-host the fonts but may switch in a future update to remove this dependency.</p>
+
+      <h3>Future analytics</h3>
+      <p>If we ever add usage analytics, we will use a privacy-respecting tool that does not use cookies, does not collect personal data, and does not track users across sites — <a href="https://plausible.io/" rel="nofollow noopener">Plausible Analytics</a> is the most likely choice. This page will be updated <em>before</em> any such tool is added.</p>
+
+      <h3>GDPR &amp; CCPA</h3>
+      <p>Because we collect no personal data, no cookies, and no tracking identifiers, the data subject rights, processing notices, and consent banner obligations under GDPR and CCPA do not apply to the calculator itself. The Google Fonts dependency is a separate matter governed by Google's policies.</p>
+
+      <h3>Concerns</h3>
+      <p>If you have a question about how this page handles your data, email <a href="mailto:hello@carpaymentcalculator.app">hello@carpaymentcalculator.app</a>. We aim to respond within five business days.</p>
+    </section>
+
+    <!-- Disclaimer -->
+    <section id="disclaimer">
+      <div class="section-head">
+        <div class="section-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8725A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <h2>Disclaimer</h2>
+      </div>
+
+      <p>This calculator provides <strong>estimates for educational and planning purposes only</strong>. It is not a binding loan quote, lender offer, or financial advice.</p>
+
+      <h3>Not a substitute for a lender quote</h3>
+      <p>The APR shown for each credit tier is a <em>national average snapshot</em>, not the rate your specific lender will offer. Real lender quotes depend on your full credit report, vehicle details (year, model, condition, mileage), loan-to-value ratio, debt-to-income ratio, employment history, and current market conditions. Two lenders pulling the same credit report on the same day can offer rates that differ by 2–4 percentage points.</p>
+
+      <h3>Not a substitute for a tax professional</h3>
+      <p>Vehicle sales tax varies by county, city, and special district in addition to the state rate shown here. Some states apply different rules for new versus used vehicles, in-state versus out-of-state buyers, leased versus purchased vehicles, or military, nonprofit, and disabled-veteran exemptions. We do not model these. For an exact tax figure, consult your dealer's title-and-tax estimate or your state's department of revenue.</p>
+
+      <h3>No financial advice</h3>
+      <p>Nothing on this page or in this calculator constitutes financial, legal, tax, or credit advice. We are not a licensed financial advisor, mortgage broker, lender, dealer, or attorney. Decisions about whether to take a loan, how much to borrow, what term to choose, or whether a particular vehicle fits your budget should involve a qualified professional and your full personal financial picture — not a quick browser tool.</p>
+
+      <h3>No liability</h3>
+      <p>Use of this calculator is at your own risk. The independent developer behind this site disclaims liability for any financial decision made on the basis of these estimates. The tool is provided "as is", without warranty of any kind, express or implied.</p>
+
+      <h3>Reporting an error</h3>
+      <p>If you believe a calculation is mathematically incorrect, please report it via the <a href="#contact">Contact</a> section so it can be fixed. Math errors are prioritized over feature requests.</p>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="section-head">
+        <div class="section-icon">
+          <svg width="24" height="20" viewBox="0 0 28 22" fill="none" stroke="#E8725A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="24" height="16" rx="2"/>
+            <polyline points="3 5 14 13 25 5"/>
+          </svg>
+        </div>
+        <h2>Contact</h2>
+      </div>
+
+      <p>Email: <a href="mailto:hello@carpaymentcalculator.app">hello@carpaymentcalculator.app</a></p>
+
+      <h3>What we welcome</h3>
+      <ul>
+        <li>Bug reports — especially calculation errors with the inputs you used so we can reproduce</li>
+        <li>Tax rate corrections, with a citation to the state DMV or department of revenue</li>
+        <li>Feature suggestions and UX feedback</li>
+        <li>Embed-widget inquiries from credit unions, schools, financial-aid offices, and nonprofits</li>
+        <li>Partnership and content collaboration discussions</li>
+      </ul>
+
+      <h3>What we cannot help with</h3>
+      <ul>
+        <li>Personalized financial advice (please consult a licensed advisor)</li>
+        <li>Lender pre-approval, loan applications, or rate quote requests</li>
+        <li>Disputes with dealerships, lenders, or finance companies</li>
+      </ul>
+
+      <h3>Response time</h3>
+      <p>We aim to respond within five business days. Bug reports affecting calculation accuracy are prioritized and typically addressed within 48 hours.</p>
+    </section>
+
+  </main>
+</div>
+
+<!-- Back link -->
+<div class="legal-back">
+  <a href="/">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Back to the calculator
+  </a>
+</div>
+
+<!-- Footer -->
+<footer class="legal-footer">
+  Car Payment Calculator · also known as a car loan calculator or auto loan calculator
+  <div class="links">
+    <a href="#about">About</a> ·
+    <a href="#methodology">Methodology</a> ·
+    <a href="#privacy">Privacy</a> ·
+    <a href="#disclaimer">Disclaimer</a> ·
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Highlight the active ToC entry as the user scrolls
+const sections = document.querySelectorAll('main.legal-content section');
+const tocLinks = document.querySelectorAll('.toc a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

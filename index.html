@@ -59,6 +59,28 @@
 }
 </script>
 
+<!-- Organization Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Car Payment Calculator",
+  "alternateName": ["Car Loan Calculator", "Auto Loan Calculator"],
+  "url": "https://carpaymentcalculator.app/",
+  "logo": "https://carpaymentcalculator.app/favicon.svg",
+  "email": "hello@carpaymentcalculator.app",
+  "description": "Free, privacy-respecting, browser-based calculator for U.S. auto loan monthly payments with credit-tier APR estimates and state-aware vehicle tax handling.",
+  "foundingDate": "2026",
+  "knowsAbout": ["Auto loans", "Car payment calculation", "Vehicle sales tax", "Loan amortization"],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "hello@carpaymentcalculator.app",
+    "contactType": "customer support",
+    "availableLanguage": ["en"]
+  }
+}
+</script>
+
 <!-- FAQPage Structured Data -->
 <script type="application/ld+json">
 {
@@ -493,6 +515,11 @@ input[type="range"]::-moz-range-thumb{width:36px;height:36px;background:var(--co
   margin-top:40px;background:var(--warm);
 }
 .footer .f-brand{font-family:var(--head);font-weight:700;color:var(--coral);font-size:14px;margin-bottom:6px;}
+.footer .f-links{margin:10px 0 8px;font-size:13px;}
+.footer .f-links a{color:var(--text-mid);text-decoration:none;margin:0 4px;transition:color 0.15s;}
+.footer .f-links a:hover{color:var(--coral);}
+.footer .f-tagline{font-size:12px;color:var(--text-light);}
+.footer .f-alt{font-size:11px;color:var(--text-light);margin-top:6px;font-style:italic;}
 
 /* ========= ANIMATIONS ========= */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
@@ -922,7 +949,15 @@ input[type="range"]::-moz-range-thumb{width:36px;height:36px;background:var(--co
     </svg>
     Car Payment Calculator
   </div>
-  Free car payment calculator — not financial advice. Consult your lender for exact terms.
+  <div class="f-links">
+    <a href="legal.html#about">About</a> ·
+    <a href="legal.html#methodology">Methodology</a> ·
+    <a href="legal.html#privacy">Privacy</a> ·
+    <a href="legal.html#disclaimer">Disclaimer</a> ·
+    <a href="legal.html#contact">Contact</a>
+  </div>
+  <div class="f-tagline">Free car payment calculator — not financial advice. Consult your lender for exact terms.</div>
+  <div class="f-alt">Also known as a car loan calculator or auto loan calculator</div>
 </div>
 
 <!-- Screen reader announcement (visually hidden, debounced) -->
