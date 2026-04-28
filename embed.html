@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Car Payment Calculator Widget — Embed on Your Site</title>
+<meta name="description" content="Embed the carpaymentcalculator.app widget on your credit-union, financial-aid, or blog site. Free, customizable accent color and default APR / tax rate. No tracking, no ads.">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://carpaymentcalculator.app/embed.html">
+<meta property="og:site_name" content="Car Payment Calculator">
+<meta property="og:title" content="Free Car Payment Calculator Widget — Embed on Your Site">
+<meta property="og:description" content="Embed a privacy-respecting car payment calculator on your site. Free, customizable, no tracking.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://carpaymentcalculator.app/embed.html">
+<meta property="og:image" content="https://carpaymentcalculator.app/og-image.png">
+
+<!-- WebApplication for the embeddable widget -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Car Payment Calculator Widget",
+  "url": "https://carpaymentcalculator.app/embed.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free embeddable car payment calculator widget for credit unions, schools, financial-aid offices, and personal-finance bloggers."
+}
+</script>
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #FFF8F0;
+  --warm: #FEF3E2;
+  --peach: #FFE8D6;
+  --coral: #E8725A;
+  --coral-light: #FFF0EC;
+  --coral-dark: #D45A42;
+  --forest: #2D5A3D;
+  --forest-light: #EAF2EC;
+  --navy: #1E2A3A;
+  --brown: #8B6F47;
+  --brown-light: #C4A97D;
+  --text: #2C2420;
+  --text-mid: #5C4F44;
+  --text-light: #9B8E82;
+  --border: #E8DDD2;
+  --border-dark: #D4C5B5;
+  --shadow: rgba(44,36,32,0.06);
+  --shadow-md: rgba(44,36,32,0.1);
+  --r: 16px;
+  --r-sm: 10px;
+  --r-lg: 24px;
+  --head: 'Fraunces', Georgia, serif;
+  --body: 'Outfit', -apple-system, sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:var(--body);
+  background:var(--cream);
+  color:var(--text);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Header */
+.eb-header {
+  border-bottom:2px solid var(--border);
+  background:rgba(255,248,240,0.92);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  padding:14px 24px;
+  position:sticky; top:0; z-index:50;
+}
+.eb-header .brand {
+  display:inline-flex; align-items:center; gap:10px;
+  text-decoration:none; color:inherit;
+  font-family:var(--head); font-weight:800;
+  font-size:16px; letter-spacing:-0.3px;
+}
+.eb-header .brand:hover { color:var(--coral); }
+.eb-header .brand span { color:var(--coral); }
+
+/* Hero */
+.eb-hero {
+  text-align:center;
+  padding:64px 24px 36px;
+  border-bottom:2px dashed var(--border);
+}
+.eb-hero h1 {
+  font-family:var(--head);
+  font-size:clamp(32px, 5vw, 46px);
+  font-weight:800;
+  letter-spacing:-1px;
+  line-height:1.15;
+  margin-bottom:14px;
+  color:var(--text);
+}
+.eb-hero h1 em { font-style:italic; color:var(--coral); }
+.eb-hero p {
+  font-size:17px; color:var(--text-mid);
+  max-width:580px; margin:0 auto 14px;
+}
+.eb-hero .badges {
+  display:flex; justify-content:center; gap:8px; flex-wrap:wrap;
+  margin-top:20px;
+}
+.eb-hero .badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--coral-light);
+  border:1.5px solid rgba(232,114,90,0.2);
+  border-radius:50px; padding:5px 12px;
+  font-size:12px; font-weight:500; color:var(--coral);
+}
+
+/* Main grid */
+.eb-main {
+  max-width:1140px; margin:0 auto;
+  padding:48px 24px;
+  display:grid;
+  grid-template-columns:1fr 480px;
+  gap:36px;
+  align-items:start;
+}
+@media(max-width:900px) {
+  .eb-main { grid-template-columns:1fr; gap:28px; }
+  .eb-preview { position:static!important; }
+}
+
+.eb-panel {
+  background:#fff;
+  border:2px solid var(--border);
+  border-radius:var(--r-lg);
+  padding:28px;
+  margin-bottom:24px;
+  box-shadow:0 1px 3px var(--shadow);
+}
+.eb-panel h2 {
+  font-family:var(--head);
+  font-size:22px; font-weight:800;
+  letter-spacing:-0.4px;
+  margin-bottom:8px;
+  color:var(--text);
+}
+.eb-panel .panel-sub {
+  font-size:14px; color:var(--text-mid);
+  margin-bottom:18px;
+}
+
+/* Customization controls */
+.eb-controls { display:grid; gap:14px; }
+.ctl {
+  display:flex; align-items:center; gap:12px;
+  padding:12px 14px;
+  background:var(--warm);
+  border:1.5px solid var(--border);
+  border-radius:var(--r-sm);
+}
+.ctl label {
+  flex:1;
+  font-size:13px; color:var(--text-mid); font-weight:500;
+}
+.ctl label small { display:block; font-size:11px; color:var(--text-light); font-weight:400; margin-top:2px; }
+.ctl input[type="text"], .ctl input[type="color"] {
+  background:#fff;
+  border:2px solid var(--border);
+  border-radius:8px;
+  padding:7px 10px;
+  font-family:var(--head);
+  font-size:14px; font-weight:600;
+  color:var(--text); outline:none;
+  transition:border-color 0.15s;
+}
+.ctl input[type="text"] { width:120px; }
+.ctl input[type="color"] {
+  width:50px; height:36px; padding:2px; cursor:pointer;
+}
+.ctl input:focus { border-color:var(--coral); }
+.ctl button.reset {
+  background:none; border:none; color:var(--text-light);
+  font-size:11px; cursor:pointer; padding:0; text-decoration:underline;
+}
+.ctl button.reset:hover { color:var(--coral); }
+
+/* Code box */
+.code-box {
+  position:relative;
+  background:#1E2A3A;
+  border-radius:var(--r-sm);
+  padding:18px 20px 18px 18px;
+  margin-top:18px;
+  overflow:hidden;
+}
+.code-box pre {
+  font-family:'SF Mono', Monaco, Consolas, monospace;
+  font-size:12px;
+  color:#FEF3E2;
+  white-space:pre-wrap;
+  word-break:break-all;
+  line-height:1.6;
+}
+.copy-btn {
+  position:absolute;
+  top:10px; right:10px;
+  background:var(--coral);
+  color:#fff;
+  border:none;
+  border-radius:7px;
+  padding:7px 14px;
+  font-family:var(--body); font-size:12px; font-weight:600;
+  cursor:pointer;
+  transition:all 0.15s;
+}
+.copy-btn:hover { background:var(--coral-dark); }
+.copy-btn.copied { background:var(--forest); }
+
+/* Preview */
+.eb-preview {
+  position:sticky; top:88px;
+}
+.eb-preview-frame {
+  width:100%;
+  background:var(--warm);
+  border:2px dashed var(--border-dark);
+  border-radius:var(--r);
+  padding:20px;
+  margin-bottom:10px;
+}
+.eb-preview-frame iframe {
+  width:100%;
+  max-width:440px;
+  height:600px;
+  border:none;
+  border-radius:14px;
+  display:block;
+  margin:0 auto;
+  background:#fff;
+}
+.eb-preview-label {
+  text-align:center;
+  font-size:11px; color:var(--text-light);
+  text-transform:uppercase; letter-spacing:1.2px;
+}
+
+/* Audience cards */
+.audience-grid {
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:14px;
+  margin-top:8px;
+}
+@media(max-width:600px) { .audience-grid { grid-template-columns:1fr; } }
+.aud-card {
+  padding:16px;
+  background:var(--warm);
+  border:1.5px solid var(--border);
+  border-radius:var(--r-sm);
+}
+.aud-card .icon {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:32px; height:32px;
+  background:#fff; border:1.5px solid var(--border);
+  border-radius:8px; margin-bottom:10px;
+}
+.aud-card h3 {
+  font-family:var(--head);
+  font-size:14px; font-weight:700;
+  color:var(--text); margin-bottom:4px;
+}
+.aud-card p {
+  font-size:12px; color:var(--text-mid); line-height:1.55;
+}
+
+/* FAQ */
+.faq-item { padding:14px 0; border-bottom:1.5px dashed var(--border); }
+.faq-item:last-child { border-bottom:none; }
+.faq-item h3 {
+  font-family:var(--head);
+  font-size:15px; font-weight:700;
+  margin-bottom:6px; color:var(--text);
+}
+.faq-item p {
+  font-size:13.5px; color:var(--text-mid); line-height:1.65;
+}
+
+/* Terms */
+.terms {
+  padding:16px 18px;
+  background:var(--forest-light);
+  border:1.5px solid rgba(45,90,61,0.2);
+  border-radius:var(--r-sm);
+  font-size:13px; color:var(--text-mid); line-height:1.6;
+}
+.terms strong { color:var(--forest); }
+
+/* Back link */
+.eb-back {
+  text-align:center;
+  margin:8px auto 32px;
+  padding:0 24px;
+}
+.eb-back a {
+  display:inline-flex; align-items:center; gap:8px;
+  color:var(--text-mid); text-decoration:none;
+  font-size:14px; font-weight:500;
+}
+.eb-back a:hover { color:var(--coral); }
+
+/* Footer */
+.eb-footer {
+  text-align:center;
+  padding:28px 24px;
+  font-size:12px;
+  color:var(--text-light);
+  background:var(--warm);
+  border-top:2px solid var(--border);
+}
+.eb-footer a { color:var(--text-mid); text-decoration:none; margin:0 4px; }
+.eb-footer a:hover { color:var(--coral); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="eb-header">
+  <a href="/" class="brand">
+    <svg width="32" height="20" viewBox="0 0 64 44" fill="none" aria-hidden="true">
+      <g stroke="#E8725A" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 32 L9 20 Q10 15 15 13 L28 9 Q33 8 38 10 L48 15 Q52 17 53 21 L57 32"/>
+        <line x1="3" y1="32" x2="59" y2="32"/>
+        <circle cx="16" cy="32" r="6"/><circle cx="16" cy="32" r="2.5"/>
+        <circle cx="48" cy="32" r="6"/><circle cx="48" cy="32" r="2.5"/>
+        <path d="M20 13 L22 21 L32 21 L33 13"/>
+        <path d="M35 14 L36 21 L46 21 L47 16"/>
+      </g>
+      <circle cx="52" cy="10" r="9" fill="#2D5A3D" stroke="#FFF8F0" stroke-width="2"/>
+    </svg>
+    Car <span>Payment</span> Calculator
+  </a>
+</header>
+
+<!-- Hero -->
+<section class="eb-hero">
+  <h1>Embed the <em>Calculator</em> on Your Site</h1>
+  <p>A free, privacy-respecting car payment calculator widget for credit unions, schools, financial-aid offices, and personal-finance writers. No tracking, no ads, no signup. Customize the accent color and default rate to match your brand.</p>
+  <div class="badges">
+    <div class="badge">Free forever</div>
+    <div class="badge">No tracking</div>
+    <div class="badge">Mobile-friendly</div>
+    <div class="badge">~50 KB</div>
+  </div>
+</section>
+
+<!-- Main two-column layout -->
+<div class="eb-main">
+
+  <!-- Left: customization + code + content -->
+  <div>
+
+    <!-- Customize panel -->
+    <div class="eb-panel">
+      <h2>Customize</h2>
+      <div class="panel-sub">Pick your accent color and pre-fill the default rate or sales tax. The preview updates live.</div>
+
+      <div class="eb-controls">
+        <div class="ctl">
+          <label for="accentColor">Accent color
+            <small>Match your brand. Click the swatch to open the picker.</small>
+          </label>
+          <input type="color" id="accentColor" value="#E8725A" aria-label="Accent color">
+          <button class="reset" data-target="accent">reset</button>
+        </div>
+
+        <div class="ctl">
+          <label for="defaultApr">Default APR
+            <small>Pre-fill your lender's rate so visitors see numbers based on your actual offer.</small>
+          </label>
+          <input type="text" id="defaultApr" value="6.5" inputmode="decimal" aria-label="Default APR percent">%
+          <button class="reset" data-target="apr">reset</button>
+        </div>
+
+        <div class="ctl">
+          <label for="defaultTax">Default sales tax
+            <small>Optional. Pre-fill your state rate for accurate local estimates.</small>
+          </label>
+          <input type="text" id="defaultTax" value="" placeholder="0" inputmode="decimal" aria-label="Default sales tax percent">%
+          <button class="reset" data-target="tax">reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code box panel -->
+    <div class="eb-panel">
+      <h2>Copy &amp; Paste</h2>
+      <div class="panel-sub">Paste this snippet anywhere on your site — sidebar, blog post, resource page. Please keep the small attribution link.</div>
+      <div class="code-box">
+        <button class="copy-btn" id="copyBtn">Copy</button>
+        <pre id="codeSnippet"></pre>
+      </div>
+    </div>
+
+    <!-- Audience -->
+    <div class="eb-panel">
+      <h2>Who embeds this</h2>
+      <div class="panel-sub">If you're any of these, the widget is built for you.</div>
+      <div class="audience-grid">
+        <div class="aud-card">
+          <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+          <h3>Credit unions &amp; banks</h3>
+          <p>Pre-fill your auto-loan rate so members see payments based on YOUR offer. Strong member-acquisition tool.</p>
+        </div>
+        <div class="aud-card">
+          <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8725A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2v-4"/><circle cx="16" cy="12" r="2"/><path d="M22 12h-4"/></svg></div>
+          <h3>Schools &amp; financial-aid offices</h3>
+          <p>Help students and parents understand auto-loan math. Goes well alongside FAFSA and budgeting resources.</p>
+        </div>
+        <div class="aud-card">
+          <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B6F47" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></div>
+          <h3>Personal-finance bloggers</h3>
+          <p>Make your "should I lease or buy" or "true cost of car ownership" posts interactive. No hosting, no maintenance.</p>
+        </div>
+        <div class="aud-card">
+          <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <h3>Auto dealers &amp; brokers</h3>
+          <p>Add a transparent calculator to your inventory pages. Builds buyer trust before they walk in.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms -->
+    <div class="eb-panel">
+      <h2>Embed terms</h2>
+      <div class="terms">
+        <strong>Free for any use, with one ask.</strong> Please keep the small attribution link visible — it's how we sustain a free, ad-free, tracking-free tool. We kindly request the calculator not be embedded on sites engaged in deceptive lending or predatory financial products.
+        <br><br>
+        <strong>Privacy &amp; performance.</strong> The widget is fully client-side and loads ~50 KB. The only third-party request is to Google Fonts (per <a href="https://policies.google.com/privacy" rel="nofollow noopener" target="_blank" style="color:var(--forest);">Google's privacy policy</a>). No analytics, no cookies, no user tracking on our end.
+        <br><br>
+        <strong>No warranty.</strong> Estimates only — see our <a href="legal.html#disclaimer" style="color:var(--forest);">full disclaimer</a>. We update the widget continuously; embedding by URL means you always get the latest version.
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="eb-panel">
+      <h2>FAQ</h2>
+
+      <div class="faq-item">
+        <h3>Is this really free?</h3>
+        <p>Yes. No fee, no signup, no API keys. The widget is hosted on our infrastructure at no cost to you.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Will it slow down my page?</h3>
+        <p>The widget is ~50 KB and loads in its own iframe, so it doesn't block your page rendering. It uses native browser APIs only — no heavy frameworks.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does it work on mobile?</h3>
+        <p>Yes. The widget is responsive down to 280 px wide, suitable for narrow sidebars and mobile screens.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I change the loan terms shown?</h3>
+        <p>Not currently — the widget shows 36 / 48 / 60 / 72 / 84 month options, which cover ~98% of auto loans. If you have a specific need, email us.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I host the widget on my own server?</h3>
+        <p>You can, but we recommend embedding by URL so you receive bug fixes and tax-table updates automatically. If you have a strong reason to self-host (air-gapped intranet, etc.), email us.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Will the calculator's results match my final loan offer?</h3>
+        <p>The calculator uses the standard amortization formula (the same math banks use). Results will match your lender's estimate to the cent for the inputs you provide. Actual loan offers may vary based on dealer fees, lender rounding, and credit profile — see our <a href="legal.html#disclaimer">disclaimer</a>.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Who do I contact about partnership?</h3>
+        <p>Email <a href="mailto:hello@carpaymentcalculator.app">hello@carpaymentcalculator.app</a>. We respond within five business days.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right: live preview -->
+  <aside class="eb-preview">
+    <div class="eb-preview-label" style="margin-bottom:8px;">Live preview</div>
+    <div class="eb-preview-frame">
+      <iframe id="previewFrame" src="widget.html" title="Calculator preview"></iframe>
+    </div>
+    <div class="eb-preview-label">Updates as you customize ↑</div>
+  </aside>
+
+</div>
+
+<!-- Back link -->
+<div class="eb-back">
+  <a href="/">← Back to the calculator</a>
+</div>
+
+<!-- Footer -->
+<footer class="eb-footer">
+  Car Payment Calculator · also known as a car loan calculator or auto loan calculator
+  <div style="margin-top:6px;">
+    <a href="legal.html#about">About</a> ·
+    <a href="legal.html#methodology">Methodology</a> ·
+    <a href="legal.html#privacy">Privacy</a> ·
+    <a href="legal.html#disclaimer">Disclaimer</a> ·
+    <a href="legal.html#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+const accentInput = document.getElementById('accentColor');
+const aprInput = document.getElementById('defaultApr');
+const taxInput = document.getElementById('defaultTax');
+const previewFrame = document.getElementById('previewFrame');
+const codeEl = document.getElementById('codeSnippet');
+const copyBtn = document.getElementById('copyBtn');
+
+const DEFAULTS = { accent: '#E8725A', apr: '6.5', tax: '' };
+
+function buildUrl() {
+  const params = new URLSearchParams();
+  const accent = accentInput.value.toLowerCase();
+  const apr = aprInput.value.trim();
+  const tax = taxInput.value.trim();
+  if (accent && accent !== DEFAULTS.accent.toLowerCase()) params.set('accent', accent);
+  if (apr && apr !== DEFAULTS.apr && parseFloat(apr) > 0) params.set('defaultApr', apr);
+  if (tax && parseFloat(tax) > 0) params.set('taxRate', tax);
+  const qs = params.toString();
+  return 'https://carpaymentcalculator.app/widget.html' + (qs ? '?' + qs : '');
+}
+
+function buildSnippet() {
+  const url = buildUrl();
+  return `<iframe src="${url}"
+  width="100%" height="620"
+  style="border:none; max-width:480px; border-radius:16px;"
+  title="Car Payment Calculator"
+  loading="lazy"></iframe>
+<p style="font-size:12px; color:#777; text-align:center; margin-top:6px;">
+  Calculator by <a href="https://carpaymentcalculator.app/" target="_blank" rel="noopener">carpaymentcalculator.app</a>
+</p>`;
+}
+
+function refresh() {
+  // Build same URL but pointing to local widget.html for the preview
+  const params = new URLSearchParams();
+  const accent = accentInput.value.toLowerCase();
+  const apr = aprInput.value.trim();
+  const tax = taxInput.value.trim();
+  if (accent && accent !== DEFAULTS.accent.toLowerCase()) params.set('accent', accent);
+  if (apr && apr !== DEFAULTS.apr && parseFloat(apr) > 0) params.set('defaultApr', apr);
+  if (tax && parseFloat(tax) > 0) params.set('taxRate', tax);
+  const qs = params.toString();
+  previewFrame.src = 'widget.html' + (qs ? '?' + qs : '');
+  codeEl.textContent = buildSnippet();
+}
+
+accentInput.addEventListener('input', refresh);
+aprInput.addEventListener('input', refresh);
+taxInput.addEventListener('input', refresh);
+
+document.querySelectorAll('button.reset').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.target;
+    if (t === 'accent') accentInput.value = DEFAULTS.accent;
+    if (t === 'apr')    aprInput.value = DEFAULTS.apr;
+    if (t === 'tax')    taxInput.value = DEFAULTS.tax;
+    refresh();
+  });
+});
+
+copyBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(codeEl.textContent);
+    copyBtn.textContent = 'Copied ✓';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.textContent = 'Copy';
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  } catch (e) {
+    // Fallback: select the text
+    const range = document.createRange();
+    range.selectNodeContents(codeEl);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    copyBtn.textContent = 'Press Ctrl+C';
+  }
+});
+
+// Initial render
+refresh();
+</script>
+
+</body>
+</html>

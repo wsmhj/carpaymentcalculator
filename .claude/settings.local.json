@@ -6,7 +6,15 @@
       "Bash(where python3:*)",
       "Bash(where python:*)",
       "Bash(where node:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(awk '/^<script>$/,/^<\\\\/script>$/' \"D:/网站/baizaoyin/carpaymentcalculator/index.html\")",
+      "Bash(git commit *)",
+      "Bash(awk '/<script type=\"application\\\\/ld\\\\+json\">/,/<\\\\/script>/' \"D:/网站/baizaoyin/carpaymentcalculator/legal.html\")",
+      "Bash(awk '/^<script type=\"application\\\\/ld\\\\+json\">$/{flag=1; next} /^<\\\\/script>$/{flag=0} flag' \"D:/网站/baizaoyin/carpaymentcalculator/legal.html\")",
+      "Bash(awk '/^<script type=\\\\\"application\\\\/ld\\\\+json\\\\\">$/{flag++; next} /^<\\\\/script>$/{flag=0} flag' D:/网站/baizaoyin/carpaymentcalculator/index.html)",
+      "Bash(git add *)",
+      "Bash(awk '/^<script>$/,/^<\\\\/script>$/' \"D:/网站/baizaoyin/carpaymentcalculator/widget.html\")",
+      "Bash(awk '/^<script>$/,/^<\\\\/script>$/' \"D:/网站/baizaoyin/carpaymentcalculator/embed.html\")"
     ]
   }
 }

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Car Payment Calculator Widget</title>
+<meta name="description" content="Embeddable car payment calculator widget — monthly auto loan estimate.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://carpaymentcalculator.app/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;800&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #FFF8F0;
+  --warm: #FEF3E2;
+  --peach: #FFE8D6;
+  --accent: #E8725A;
+  --accent-light: #FFF0EC;
+  --accent-dark: #D45A42;
+  --text: #2C2420;
+  --text-mid: #5C4F44;
+  --text-light: #9B8E82;
+  --border: #E8DDD2;
+  --border-dark: #D4C5B5;
+  --head: 'Fraunces', Georgia, serif;
+  --body: 'Outfit', -apple-system, sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; }
+body {
+  font-family:var(--body);
+  background:var(--cream);
+  color:var(--text);
+  line-height:1.5;
+  padding:18px;
+  -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;
+  min-height:100vh;
+}
+.wgt-card {
+  background:#fff;
+  border:2px solid var(--border);
+  border-radius:18px;
+  padding:20px 18px 16px;
+  flex:1;display:flex;flex-direction:column;
+  box-shadow:0 1px 3px rgba(44,36,32,0.06);
+}
+.wgt-title {
+  font-family:var(--head);
+  font-size:14px;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:4px;
+  letter-spacing:-0.3px;
+}
+.wgt-sub {
+  font-size:11px;
+  color:var(--text-light);
+  margin-bottom:14px;
+}
+.field { margin-bottom:12px; }
+.field label {
+  display:block;
+  font-size:11px;
+  font-weight:500;
+  color:var(--text-mid);
+  margin-bottom:5px;
+}
+.input-wrap { position:relative; display:flex; align-items:center; }
+.input-wrap .prefix {
+  position:absolute; left:11px;
+  font-size:13px; color:var(--text-light); font-weight:500;
+  pointer-events:none; z-index:1;
+}
+.input-wrap .suffix {
+  position:absolute; right:11px;
+  font-size:11px; color:var(--text-light); pointer-events:none;
+}
+input[type="text"] {
+  width:100%;
+  background:var(--warm);
+  border:2px solid var(--border);
+  border-radius:8px;
+  padding:9px 11px;
+  font-family:var(--head);
+  font-size:14px; font-weight:600;
+  color:var(--text); outline:none;
+  transition:border-color 0.2s, box-shadow 0.2s;
+}
+input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(232,114,90,0.12); }
+input.has-prefix { padding-left:24px; }
+input.has-suffix { padding-right:30px; }
+.slider-row { display:flex; align-items:center; gap:8px; margin-top:6px; }
+input[type="range"] {
+  flex:1; -webkit-appearance:none; appearance:none;
+  height:5px; background:var(--peach); border-radius:3px;
+  outline:none; border:none; cursor:pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance:none; width:18px; height:18px;
+  background:var(--accent); border-radius:50%; cursor:pointer;
+  border:2px solid #fff;
+  box-shadow:0 1px 3px rgba(0,0,0,0.2);
+}
+input[type="range"]::-moz-range-thumb {
+  width:18px; height:18px; background:var(--accent);
+  border-radius:50%; cursor:pointer; border:2px solid #fff;
+}
+.slider-val {
+  font-family:var(--head); font-size:11px; font-weight:600;
+  color:var(--accent); min-width:42px; text-align:right;
+}
+.btn-group { display:flex; gap:4px; flex-wrap:wrap; }
+.btn-group button {
+  flex:1; min-width:0; padding:7px 4px;
+  background:var(--warm);
+  border:2px solid var(--border);
+  border-radius:7px;
+  color:var(--text-mid);
+  font-family:var(--body); font-size:11px; font-weight:500;
+  cursor:pointer; transition:all 0.15s;
+}
+.btn-group button:hover { border-color:var(--border-dark); color:var(--text); }
+.btn-group button.active {
+  background:var(--accent-light);
+  border-color:var(--accent);
+  color:var(--accent);
+  font-weight:600;
+}
+.result {
+  margin-top:14px;
+  padding:16px 14px;
+  background:linear-gradient(135deg, var(--accent-light) 0%, #fff 100%);
+  border:2px solid rgba(232,114,90,0.18);
+  border-radius:14px;
+  text-align:center;
+}
+.result .ml {
+  font-size:9.5px; text-transform:uppercase;
+  letter-spacing:1.2px; color:var(--text-light);
+  font-weight:500; margin-bottom:4px;
+}
+.result .ma {
+  font-family:var(--head);
+  font-size:34px; font-weight:800;
+  color:var(--accent); line-height:1;
+}
+.result .mp {
+  font-size:11px; color:var(--text-mid); margin-top:4px;
+}
+.result .mi {
+  font-size:10.5px; color:var(--text-light);
+  margin-top:8px; padding-top:8px;
+  border-top:1px dashed var(--border);
+}
+.attribution {
+  text-align:center;
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px solid var(--border);
+  font-size:10.5px;
+  color:var(--text-light);
+}
+.attribution a {
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:500;
+}
+.attribution a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<div class="wgt-card">
+  <div class="wgt-title">Car Payment Calculator</div>
+  <div class="wgt-sub">Estimate your monthly auto loan payment.</div>
+
+  <div class="field">
+    <label>Vehicle Price</label>
+    <div class="input-wrap">
+      <span class="prefix">$</span>
+      <input type="text" id="price" class="has-prefix" value="35,000" inputmode="numeric" aria-label="Vehicle price">
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Down Payment <span id="downPct" style="color:var(--accent);font-size:10px;">14.3%</span></label>
+    <div class="input-wrap">
+      <span class="prefix">$</span>
+      <input type="text" id="down" class="has-prefix" value="5,000" inputmode="numeric" aria-label="Down payment">
+    </div>
+    <div class="slider-row">
+      <input type="range" id="downSlider" min="0" max="35000" step="250" value="5000" aria-label="Down payment slider">
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Interest Rate (APR)</label>
+    <div class="input-wrap">
+      <input type="text" id="apr" class="has-suffix" value="6.5" inputmode="decimal" aria-label="Annual percentage rate">
+      <span class="suffix">%</span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Loan Term (months)</label>
+    <div class="btn-group" id="termGroup" role="group">
+      <button data-val="36">36</button>
+      <button data-val="48">48</button>
+      <button data-val="60" class="active">60</button>
+      <button data-val="72">72</button>
+      <button data-val="84">84</button>
+    </div>
+  </div>
+
+  <div class="result">
+    <div class="ml">Estimated Monthly Payment</div>
+    <div class="ma" id="monthly">$0</div>
+    <div class="mp">per month for <span id="termLabel">60</span> months</div>
+    <div class="mi" id="taxLine" style="display:none">incl. <span id="taxRateLabel">0</span>% sales tax</div>
+  </div>
+
+  <div class="attribution">
+    Calculator by <a href="https://carpaymentcalculator.app/" target="_blank" rel="noopener">carpaymentcalculator.app</a>
+  </div>
+</div>
+
+<script>
+// Parse query params for embedder customization
+const params = new URLSearchParams(window.location.search);
+const accentParam = params.get('accent');
+const aprParam = parseFloat(params.get('defaultApr'));
+const taxParam = parseFloat(params.get('taxRate'));
+
+// Validate accent (must be valid hex color #RRGGBB or #RGB)
+if (accentParam && /^#([0-9A-Fa-f]{3}){1,2}$/.test(accentParam)) {
+  document.documentElement.style.setProperty('--accent', accentParam);
+  // Derive a lighter version for backgrounds via opacity (just use semi-transparent)
+  document.documentElement.style.setProperty('--accent-light', accentParam + '15');
+  document.documentElement.style.setProperty('--accent-dark', accentParam);
+}
+
+const state = {
+  price: 35000,
+  down: 5000,
+  apr: (!isNaN(aprParam) && aprParam >= 0 && aprParam <= 30) ? aprParam : 6.5,
+  term: 60,
+  taxRate: (!isNaN(taxParam) && taxParam >= 0 && taxParam <= 15) ? taxParam : 0
+};
+
+// Apply defaultApr from URL on load
+if (state.apr !== 6.5) {
+  document.getElementById('apr').value = state.apr;
+}
+
+// Format helper
+function fmt(n) {
+  return n.toLocaleString('en-US', { minimumFractionDigits:0, maximumFractionDigits:0 });
+}
+function parseMoney(str) {
+  return Math.min(Math.max(parseFloat(String(str).replace(/[^0-9.]/g,'')) || 0, 0), 10000000);
+}
+
+// Standard amortization formula
+function calcPayment(principal, aprPercent, months) {
+  if (principal <= 0 || months <= 0) return 0;
+  if (aprPercent === 0) return principal / months;
+  const r = (aprPercent / 100) / 12;
+  return principal * r * Math.pow(1+r, months) / (Math.pow(1+r, months) - 1);
+}
+
+function update() {
+  const price = state.price;
+  const down = Math.min(state.down, price);
+  const tax = state.taxRate > 0 ? price * state.taxRate / 100 : 0;
+  const loanAmt = Math.max(0, price - down + tax);
+  const monthly = calcPayment(loanAmt, state.apr, state.term);
+
+  document.getElementById('monthly').textContent = '$' + fmt(Math.round(monthly));
+  document.getElementById('termLabel').textContent = state.term;
+  document.getElementById('downPct').textContent = price > 0 ? (state.down / price * 100).toFixed(1) + '%' : '0%';
+
+  const taxLine = document.getElementById('taxLine');
+  if (state.taxRate > 0) {
+    taxLine.style.display = '';
+    document.getElementById('taxRateLabel').textContent = state.taxRate;
+  } else {
+    taxLine.style.display = 'none';
+  }
+
+  // Sync slider max to price
+  const dsl = document.getElementById('downSlider');
+  dsl.max = Math.max(price, 1);
+  dsl.value = state.down;
+}
+
+// Wire money inputs with comma formatting
+function wireInput(id, key) {
+  const el = document.getElementById(id);
+  el.addEventListener('input', () => {
+    state[key] = parseMoney(el.value);
+    if (key !== 'apr') {
+      const v = parseMoney(el.value);
+      el.value = v > 0 ? fmt(v) : '';
+    }
+    update();
+  });
+}
+wireInput('price', 'price');
+wireInput('down', 'down');
+
+// APR input — clamp to 0-30
+document.getElementById('apr').addEventListener('input', e => {
+  const raw = parseFloat(e.target.value) || 0;
+  state.apr = Math.min(Math.max(raw, 0), 30);
+  update();
+});
+
+// Down payment slider sync
+document.getElementById('downSlider').addEventListener('input', e => {
+  state.down = parseInt(e.target.value);
+  document.getElementById('down').value = fmt(state.down);
+  update();
+});
+
+// Term button group
+document.querySelectorAll('#termGroup button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#termGroup button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.term = parseInt(btn.dataset.val);
+    update();
+  });
+});
+
+// Initial render
+update();
+</script>
+
+</body>
+</html>
