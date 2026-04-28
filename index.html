@@ -289,6 +289,7 @@ body{
 .field-hint svg{flex-shrink:0;margin-top:1px;}
 .field-warning{font-size:11px;color:var(--coral);margin-top:6px;line-height:1.5;display:flex;align-items:center;gap:5px;transition:opacity 0.2s;}
 .field-warning.error{color:var(--coral-dark);}
+.field-warning.hint{color:var(--brown);}
 .input-wrap{position:relative;display:flex;align-items:center;}
 .input-wrap .prefix{position:absolute;left:14px;font-size:15px;color:var(--text-light);font-weight:500;pointer-events:none;z-index:1;}
 .input-wrap .suffix{position:absolute;right:14px;font-size:13px;color:var(--text-light);pointer-events:none;}
@@ -387,7 +388,7 @@ input[type="range"]::-moz-range-thumb{width:36px;height:36px;background:var(--co
 
 /* ========= BREAKDOWN ========= */
 .breakdown{margin-bottom:22px;}
-.breakdown-item{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1.5px solid var(--border);font-size:13px;}
+.breakdown-item{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1.5px solid var(--border);font-size:13px;}
 .breakdown-item:last-child{border-bottom:none;}
 .breakdown-item .bl{color:var(--text-mid);}
 .breakdown-item .bv{font-family:var(--head);font-size:14px;font-weight:600;color:var(--text);}
@@ -686,6 +687,7 @@ input[type="range"]::-moz-range-thumb{width:36px;height:36px;background:var(--co
           <input type="text" id="apr" class="has-suffix" value="6.5" inputmode="decimal" aria-label="Annual percentage rate">
           <span class="suffix">%</span>
         </div>
+        <div style="font-size:10px;color:var(--text-light);margin-top:5px;">Default rates updated April 2026 · based on national auto-loan averages</div>
         <div class="field-warning" id="aprWarning" style="display:none"></div>
       </div>
 
@@ -699,6 +701,7 @@ input[type="range"]::-moz-range-thumb{width:36px;height:36px;background:var(--co
           <button data-val="72" aria-pressed="false">72</button>
           <button data-val="84" aria-pressed="false">84</button>
         </div>
+        <div class="field-warning" id="termWarning" style="display:none"></div>
       </div>
 
       <div class="field">
@@ -713,6 +716,9 @@ input[type="range"]::-moz-range-thumb{width:36px;height:36px;background:var(--co
           </div>
         </div>
         <div id="taxInfo" style="font-size:11px;color:var(--text-light);margin-top:6px;"></div>
+        <div style="font-size:11px;color:var(--text-light);margin-top:8px;line-height:1.55;padding:9px 11px;background:var(--warm);border-radius:10px;border:1px dashed var(--border-dark);">
+          <strong style="color:var(--text-mid);">State base rate only.</strong> Local county/city taxes typically add 0.5–4% (e.g., NYC ≈ +4.9%, Chicago ≈ +4%, LA ≈ +2.5%, Seattle ≈ +3.6%). Type your actual rate above to override. Not sure? Search "<em>[your city] vehicle sales tax</em>" or check your state DMV.
+        </div>
       </div>
     </div>
 
@@ -789,7 +795,7 @@ input[type="range"]::-moz-range-thumb{width:36px;height:36px;background:var(--co
         <div class="breakdown-item"><span class="bl">Vehicle Price</span><span class="bv" id="brkPrice">$35,000</span></div>
         <div class="breakdown-item"><span class="bl">Down Payment</span><span class="bv" id="brkDown">−$5,000</span></div>
         <div class="breakdown-item"><span class="bl">Trade-in</span><span class="bv" id="brkTrade">−$0</span></div>
-        <div class="breakdown-item" id="taxRow" style="display:none"><span class="bl">Est. Sales Tax (<span id="brkTaxRate">0</span>%)</span><span class="bv" id="brkTax">$0</span></div>
+        <div class="breakdown-item" id="taxRow" style="display:none"><span class="bl">Est. Sales Tax (<span id="brkTaxRate">0</span>%)<span id="brkTaxNote" style="display:none;font-size:10px;color:var(--text-light);font-weight:400;margin-top:2px;"></span></span><span class="bv" id="brkTax">$0</span></div>
         <div class="breakdown-item"><span class="bl">Loan Amount</span><span class="bv" id="brkLoan">$30,000</span></div>
         <div class="breakdown-item"><span class="bl">Total Interest</span><span class="bv" id="brkInterest" style="color:var(--coral)">$0</span></div>
         <div class="breakdown-item total"><span class="bl">Total of All Payments</span><span class="bv" id="brkTotal">$0</span></div>
@@ -801,7 +807,7 @@ input[type="range"]::-moz-range-thumb{width:36px;height:36px;background:var(--co
 
       <div style="margin-top:18px;font-size:12px;color:var(--text-light);line-height:1.6;text-align:center;">
         <p><strong style="color:var(--text-mid);">Like this calculator?</strong> Share it with someone shopping for a car.</p>
-        <p style="margin-top:4px;">Questions or feedback? Reach us at <a href="mailto:websiteaftersales@gmail.com" style="color:var(--coral);text-decoration:none;">websiteaftersales@gmail.com</a></p>
+        <p style="margin-top:4px;">Questions or feedback? Reach us at <a href="mailto:hello@carpaymentcalculator.app" style="color:var(--coral);text-decoration:none;">hello@carpaymentcalculator.app</a></p>
       </div>
     </div>
   </div>
@@ -945,127 +951,182 @@ const state = {
   term: 60,           // months
   zip: '',
   taxRate: 0,
+  taxRule: null,       // active tax rule object (state-specific or synthetic for manual)
   taxManual: false,    // true once user edits tax rate directly
   aprManual: false     // true once user edits APR directly
 };
 
-// Average APR by condition × credit tier (source: national auto loan averages)
+// Average APR by condition × credit tier. Snapshot from national auto-loan
+// averages (Bankrate / Experian State of the Auto Finance Market). Last
+// reviewed 2026-04. Re-check quarterly; rates drift with Fed cycle.
 const APR_MAP = {
   new:  { excellent: 6.5, good: 7.9, fair: 11.5, poor: 14.5 },
   used: { excellent: 8.0, good: 9.5, fair: 13.5, poor: 17.5 }
 };
 
-// State-level vehicle sales/excise tax rates keyed by 2-digit ZIP prefix
-// Covers all 50 states + DC + PR. Uses vehicle-specific rates where states
-// charge differently from general sales tax (VA, NC, GA, OK, SD, MN, NM, MS).
-// Where a prefix spans two states, the dominant state's rate is used.
-const STATE_TAX = {
-  '00':11.5,  // PR (IVU)
-  '01':6.25,  // MA
-  '02':6.25,  // MA (028-029 = RI 7%, MA dominates)
-  '03':0,     // NH
-  '04':5.5,   // ME
-  '05':6,     // VT
-  '06':6.35,  // CT
-  '07':6.625, // NJ
-  '08':6.625, // NJ
-  '09':6.625, // NJ / Military APO
-  '10':4,     // NY (state portion only)
-  '11':4,     // NY
-  '12':4,     // NY
-  '13':4,     // NY
-  '14':4,     // NY
-  '15':6,     // PA
-  '16':6,     // PA
-  '17':6,     // PA
-  '18':6,     // PA
-  '19':6,     // PA (190-196) / DE 0% (197-199, PA dominates)
-  '20':6,     // DC 6% / MD 6%
-  '21':6,     // MD
-  '22':4.15,  // VA (motor vehicle sales tax)
-  '23':4.15,  // VA
-  '24':4.15,  // VA
-  '25':6,     // WV
-  '26':6,     // WV
-  '27':3,     // NC (highway use tax)
-  '28':3,     // NC
-  '29':5,     // SC (capped at $500)
-  '30':6.6,   // GA (Title Ad Valorem Tax)
-  '31':6.6,   // GA
-  '32':6,     // FL
-  '33':6,     // FL
-  '34':6,     // FL
-  '35':2,     // AL (state only; locals add significantly)
-  '36':2,     // AL
-  '37':7,     // TN
-  '38':7,     // TN (380-385) / MS (386-389, TN dominates)
-  '39':5,     // MS (vehicle rate, not 7% general)
-  '40':6,     // KY
-  '41':6,     // KY
-  '42':6,     // KY
-  '43':5.75,  // OH
-  '44':5.75,  // OH
-  '45':5.75,  // OH
-  '46':7,     // IN
-  '47':7,     // IN
-  '48':6,     // MI
-  '49':6,     // MI
-  '50':5,     // IA
-  '51':5,     // IA
-  '52':5,     // IA
-  '53':5,     // WI
-  '54':5,     // WI
-  '55':6.5,   // MN (motor vehicle sales tax)
-  '56':6.5,   // MN
-  '57':4,     // SD (motor vehicle excise tax)
-  '58':5,     // ND
-  '59':0,     // MT
-  '60':6.25,  // IL
-  '61':6.25,  // IL
-  '62':6.25,  // IL
-  '63':4.225, // MO
-  '64':4.225, // MO
-  '65':4.225, // MO
-  '66':6.5,   // KS
-  '67':6.5,   // KS
-  '68':5.5,   // NE
-  '69':5.5,   // NE
-  '70':4.45,  // LA
-  '71':4.45,  // LA
-  '72':6.5,   // AR
-  '73':3.25,  // OK (motor vehicle excise tax)
-  '74':3.25,  // OK
-  '75':6.25,  // TX
-  '76':6.25,  // TX
-  '77':6.25,  // TX
-  '78':6.25,  // TX
-  '79':6.25,  // TX
-  '80':2.9,   // CO
-  '81':2.9,   // CO
-  '82':4,     // WY
-  '83':6,     // ID
-  '84':4.85,  // UT (state portion)
-  '85':5.6,   // AZ
-  '86':5.6,   // AZ
-  '87':4,     // NM (motor vehicle excise tax)
-  '88':4,     // NM (880-884) / TX edge
-  '89':6.85,  // NV
-  '90':7.25,  // CA (state rate)
-  '91':7.25,  // CA
-  '92':7.25,  // CA
-  '93':7.25,  // CA
-  '94':7.25,  // CA
-  '95':7.25,  // CA
-  '96':7.25,  // CA (960-961) / HI 4% (967-968, CA dominates)
-  '97':0,     // OR
-  '98':6.5,   // WA
-  '99':6.5    // WA (990-994) / AK 0% (995-999, WA dominates)
+// Per-state vehicle tax rules. tradeInCredit semantics:
+//   true       — most states; tax base = price - tradeIn
+//   false      — CA / HI / MD / VA / DC / PR; tax on full price
+//   'partial'  — IL caps the credited amount at tradeInCap
+// taxCap caps the tax dollars themselves (SC's $500 Infrastructure Maintenance Fee).
+const STATE_RULES = {
+  AK: { rate: 0,     tradeInCredit: true  },
+  AL: { rate: 2.0,   tradeInCredit: true  },
+  AR: { rate: 6.5,   tradeInCredit: true  },
+  AZ: { rate: 5.6,   tradeInCredit: true  },
+  CA: { rate: 7.25,  tradeInCredit: false },
+  CO: { rate: 2.9,   tradeInCredit: true  },
+  CT: { rate: 6.35,  tradeInCredit: true  },
+  DC: { rate: 6.0,   tradeInCredit: false },
+  DE: { rate: 0,     tradeInCredit: true  }, // 4.25% doc fee not modeled
+  FL: { rate: 6.0,   tradeInCredit: true  },
+  GA: { rate: 6.6,   tradeInCredit: true  }, // TAVT, approximated as sales tax
+  HI: { rate: 4.0,   tradeInCredit: false }, // general excise tax
+  IA: { rate: 5.0,   tradeInCredit: true  },
+  ID: { rate: 6.0,   tradeInCredit: true  },
+  IL: { rate: 6.25,  tradeInCredit: 'partial', tradeInCap: 10000 },
+  IN: { rate: 7.0,   tradeInCredit: true  },
+  KS: { rate: 6.5,   tradeInCredit: true  },
+  KY: { rate: 6.0,   tradeInCredit: true  },
+  LA: { rate: 4.45,  tradeInCredit: true  },
+  MA: { rate: 6.25,  tradeInCredit: true  },
+  MD: { rate: 6.0,   tradeInCredit: false },
+  ME: { rate: 5.5,   tradeInCredit: true  },
+  MI: { rate: 6.0,   tradeInCredit: true  }, // full credit since 2024 phase-in
+  MN: { rate: 6.5,   tradeInCredit: true  },
+  MO: { rate: 4.225, tradeInCredit: true  },
+  MS: { rate: 5.0,   tradeInCredit: true  },
+  MT: { rate: 0,     tradeInCredit: true  },
+  NC: { rate: 3.0,   tradeInCredit: true  }, // highway use tax
+  ND: { rate: 5.0,   tradeInCredit: true  },
+  NE: { rate: 5.5,   tradeInCredit: true  },
+  NH: { rate: 0,     tradeInCredit: true  },
+  NJ: { rate: 6.625, tradeInCredit: true  },
+  NM: { rate: 4.0,   tradeInCredit: true  }, // motor vehicle excise
+  NV: { rate: 6.85,  tradeInCredit: true  },
+  NY: { rate: 4.0,   tradeInCredit: true  }, // state portion only
+  OH: { rate: 5.75,  tradeInCredit: true  },
+  OK: { rate: 3.25,  tradeInCredit: true  }, // motor vehicle excise
+  OR: { rate: 0,     tradeInCredit: true  },
+  PA: { rate: 6.0,   tradeInCredit: true  },
+  PR: { rate: 11.5,  tradeInCredit: false }, // IVU
+  RI: { rate: 7.0,   tradeInCredit: true  },
+  SC: { rate: 5.0,   tradeInCredit: false, taxCap: 500 }, // IMF, no trade-in credit
+  SD: { rate: 4.0,   tradeInCredit: true  },
+  TN: { rate: 7.0,   tradeInCredit: true  },
+  TX: { rate: 6.25,  tradeInCredit: true  },
+  UT: { rate: 4.85,  tradeInCredit: true  },
+  VA: { rate: 4.15,  tradeInCredit: false },
+  VT: { rate: 6.0,   tradeInCredit: true  },
+  WA: { rate: 6.5,   tradeInCredit: true  },
+  WI: { rate: 5.0,   tradeInCredit: true  },
+  WV: { rate: 6.0,   tradeInCredit: true  },
+  WY: { rate: 4.0,   tradeInCredit: true  }
 };
 
-function estimateTax(zip) {
-  if (!zip || zip.length < 2) return 0;
-  const prefix = zip.substring(0, 2);
-  return (prefix in STATE_TAX) ? STATE_TAX[prefix] : 0;
+// 2-digit ZIP prefix → state code. Where a prefix spans two states, the
+// dominant state wins here and the minority state gets a 3-digit override below.
+const ZIP2_TO_STATE = {
+  '00':'PR',
+  '01':'MA','02':'MA',
+  '03':'NH','04':'ME','05':'VT','06':'CT',
+  '07':'NJ','08':'NJ','09':'NJ',
+  '10':'NY','11':'NY','12':'NY','13':'NY','14':'NY',
+  '15':'PA','16':'PA','17':'PA','18':'PA','19':'PA',
+  '20':'DC','21':'MD',
+  '22':'VA','23':'VA','24':'VA',
+  '25':'WV','26':'WV',
+  '27':'NC','28':'NC','29':'SC',
+  '30':'GA','31':'GA',
+  '32':'FL','33':'FL','34':'FL',
+  '35':'AL','36':'AL',
+  '37':'TN','38':'TN','39':'MS',
+  '40':'KY','41':'KY','42':'KY',
+  '43':'OH','44':'OH','45':'OH',
+  '46':'IN','47':'IN',
+  '48':'MI','49':'MI',
+  '50':'IA','51':'IA','52':'IA',
+  '53':'WI','54':'WI',
+  '55':'MN','56':'MN',
+  '57':'SD','58':'ND','59':'MT',
+  '60':'IL','61':'IL','62':'IL',
+  '63':'MO','64':'MO','65':'MO',
+  '66':'KS','67':'KS',
+  '68':'NE','69':'NE',
+  '70':'LA','71':'LA','72':'AR',
+  '73':'OK','74':'OK',
+  '75':'TX','76':'TX','77':'TX','78':'TX','79':'TX',
+  '80':'CO','81':'CO',
+  '82':'WY','83':'ID','84':'UT',
+  '85':'AZ','86':'AZ',
+  '87':'NM','88':'NM','89':'NV',
+  '90':'CA','91':'CA','92':'CA','93':'CA','94':'CA','95':'CA','96':'CA',
+  '97':'OR','98':'WA','99':'WA'
+};
+
+// 3-digit overrides for ZIP ranges that cross into a non-dominant state.
+const ZIP3_OVERRIDES = {
+  '028':'RI','029':'RI',                                // RI inside MA prefix
+  '197':'DE','198':'DE','199':'DE',                     // DE inside PA prefix
+  '386':'MS','387':'MS','388':'MS','389':'MS',          // MS inside TN prefix
+  '967':'HI','968':'HI',                                // HI inside CA prefix
+  '995':'AK','996':'AK','997':'AK','998':'AK','999':'AK'// AK inside WA prefix
+};
+
+function lookupRule(zip) {
+  if (!zip || zip.length < 5) return null;
+  const stateCode = ZIP3_OVERRIDES[zip.substring(0,3)] || ZIP2_TO_STATE[zip.substring(0,2)];
+  return stateCode ? STATE_RULES[stateCode] : null;
+}
+
+// Synthetic rule for when the user types a tax rate manually with no ZIP context.
+// Default to allowing trade-in credit since that's how most states behave.
+function manualRule(rate) {
+  return { rate, tradeInCredit: true };
+}
+
+// When the user enters a manual rate AND a known ZIP exists, override only the
+// rate digit and inherit that state's cap / trade-in semantics. Falls back to
+// the neutral synthetic rule when no state context is available.
+function buildManualRule(rate, zip) {
+  const baseRule = zip && zip.length === 5 ? lookupRule(zip) : null;
+  return baseRule ? { ...baseRule, rate } : manualRule(rate);
+}
+
+// Effective credited trade-in amount for a given rule and trade-in dollars.
+function tradeInCredit(trade, rule) {
+  if (!rule) return 0;
+  if (rule.tradeInCredit === true)      return trade;
+  if (rule.tradeInCredit === 'partial') return Math.min(trade, rule.tradeInCap);
+  return 0;
+}
+
+// Forward: tax dollars given price, trade-in, and rule.
+function calculateTax(price, tradeIn, rule) {
+  if (!rule || price <= 0 || rule.rate === 0) return 0;
+  const credit = Math.min(tradeInCredit(tradeIn, rule), price);
+  const base = Math.max(0, price - credit);
+  let tax = base * rule.rate / 100;
+  if (rule.taxCap) tax = Math.min(tax, rule.taxCap);
+  return tax;
+}
+
+// Reverse: highest price such that price - down - trade + tax = maxLoan.
+// Closed-form derivation:
+//   loanAmt = price - down - trade + (price - credit) * r
+//           = price * (1+r) - down - trade - credit*r
+//   ⇒ price = (maxLoan + down + trade + credit*r) / (1+r)
+// If the resulting tax would breach a SC-style cap, fall back to the capped form.
+function reversePrice(maxLoan, down, trade, rule) {
+  if (!rule || rule.rate === 0) return Math.max(0, maxLoan + down + trade);
+  const r = rule.rate / 100;
+  const credit = tradeInCredit(trade, rule);
+  let price = (maxLoan + down + trade + credit * r) / (1 + r);
+  if (rule.taxCap && (price - credit) * r > rule.taxCap) {
+    // Capped regime: tax is the flat cap, so loanAmt = price - down - trade + cap
+    price = maxLoan + down + trade - rule.taxCap;
+  }
+  return Math.max(0, price);
 }
 
 // Formatting helpers
@@ -1190,7 +1251,7 @@ function update() {
     price = state.price;
     const down = Math.min(state.down, price);
     const trade = Math.min(state.tradeIn, price - down);
-    const taxAmt = state.taxRate > 0 ? price * state.taxRate / 100 : 0;
+    const taxAmt = calculateTax(price, trade, state.taxRule);
     const cashCovers = state.down + state.tradeIn >= price;
     loanAmt = cashCovers ? 0 : Math.max(0, price - down - trade + taxAmt);
     res = calcPayment(loanAmt, state.apr, state.term);
@@ -1204,11 +1265,10 @@ function update() {
   } else {
     // Reverse mode: solve for max price from monthly budget
     const maxLoan = calcPrincipalFromPayment(state.budget, state.apr, state.term);
-    const taxMultiplier = state.taxRate > 0 ? (1 + state.taxRate / 100) : 1;
-    price = Math.max(0, (maxLoan + state.down + state.tradeIn) / taxMultiplier);
+    price = reversePrice(maxLoan, state.down, state.tradeIn, state.taxRule);
     const down = Math.min(state.down, price);
     const trade = Math.min(state.tradeIn, price - down);
-    const taxAmt = state.taxRate > 0 ? price * state.taxRate / 100 : 0;
+    const taxAmt = calculateTax(price, trade, state.taxRule);
     loanAmt = Math.max(0, price - down - trade + taxAmt);
     res = calcPayment(loanAmt, state.apr, state.term);
 
@@ -1234,16 +1294,35 @@ function update() {
   document.getElementById('interestPct').textContent = interestPercent + '%';
 
   // --- Breakdown panel ---
-  const taxAmt = state.taxRate > 0 ? price * state.taxRate / 100 : 0;
+  const brkTrade = Math.min(state.tradeIn, price);
+  const taxAmt = calculateTax(price, brkTrade, state.taxRule);
   document.getElementById('brkPrice').textContent = '$' + fmt(Math.round(price));
   document.getElementById('brkDown').textContent = '−$' + fmt(Math.min(state.down, price));
-  document.getElementById('brkTrade').textContent = '−$' + fmt(Math.min(state.tradeIn, price));
-  if (state.taxRate > 0) {
+  document.getElementById('brkTrade').textContent = '−$' + fmt(brkTrade);
+  const noteEl = document.getElementById('brkTaxNote');
+  if (state.taxRule && state.taxRule.rate > 0) {
     document.getElementById('taxRow').style.display = '';
-    document.getElementById('brkTaxRate').textContent = state.taxRate;
+    document.getElementById('brkTaxRate').textContent = state.taxRule.rate;
     document.getElementById('brkTax').textContent = '+$' + fmt(Math.round(taxAmt));
+    // Build hint about tax base / cap behavior
+    const rule = state.taxRule;
+    const credit = Math.min(tradeInCredit(brkTrade, rule), price);
+    const uncappedTax = (price - credit) * rule.rate / 100;
+    let note = '';
+    if (rule.taxCap && uncappedTax > rule.taxCap) {
+      note = `capped at $${rule.taxCap}`;
+    } else if (rule.tradeInCredit === 'partial' && brkTrade > rule.tradeInCap) {
+      note = `on $${fmt(Math.round(price - credit))} (trade-in credit capped at $${fmt(rule.tradeInCap)})`;
+    } else if (credit > 0) {
+      note = `on $${fmt(Math.round(price - credit))} after trade-in`;
+    } else if (rule.tradeInCredit === false && brkTrade > 0) {
+      note = `no trade-in credit in this state`;
+    }
+    if (note) { noteEl.textContent = note; noteEl.style.display = 'block'; }
+    else      { noteEl.style.display = 'none'; }
   } else {
     document.getElementById('taxRow').style.display = 'none';
+    if (noteEl) noteEl.style.display = 'none';
   }
   document.getElementById('brkLoan').textContent = '$' + fmt(Math.round(loanAmt));
   document.getElementById('brkInterest').textContent = '$' + fmt(Math.round(res.totalInterest));
@@ -1273,9 +1352,10 @@ function update() {
     budgetWarn.style.display = 'flex';
   } else { budgetWarn.style.display = 'none'; }
 
-  // Down payment warning
+  // Down payment warning — error > exceed > low-down hint, in that order
   const downWarn = document.getElementById('downWarning');
   const downPctLabel = document.getElementById('downPercent');
+  const downRatio = price > 0 ? state.down / price : 0;
   if (state.mode === 'forward' && state.down > state.price && state.price > 0) {
     downWarn.innerHTML = warnIcon + ' Down payment exceeds vehicle price. Loan amount is $0.';
     downWarn.className = 'field-warning error'; downWarn.style.display = 'flex';
@@ -1284,7 +1364,21 @@ function update() {
     downWarn.innerHTML = warnIcon + ' Down payment + trade-in exceeds vehicle price.';
     downWarn.className = 'field-warning'; downWarn.style.display = 'flex';
     downPctLabel.classList.remove('warning');
+  } else if (price > 0 && state.down > 0 && downRatio < 0.1) {
+    downWarn.innerHTML = warnIcon + ' Lenders typically recommend 10–20% down to avoid being underwater on the loan.';
+    downWarn.className = 'field-warning hint'; downWarn.style.display = 'flex';
+    downPctLabel.classList.remove('warning');
   } else { downWarn.style.display = 'none'; downPctLabel.classList.remove('warning'); }
+
+  // Loan term warning — long terms cost more interest and risk being underwater
+  const termWarn = document.getElementById('termWarning');
+  if (state.term >= 84) {
+    termWarn.innerHTML = warnIcon + ' 84-month loans often leave you owing more than the car is worth.';
+    termWarn.className = 'field-warning'; termWarn.style.display = 'flex';
+  } else if (state.term >= 72) {
+    termWarn.innerHTML = warnIcon + ' Longer terms lower the monthly payment but cost more interest overall.';
+    termWarn.className = 'field-warning hint'; termWarn.style.display = 'flex';
+  } else { termWarn.style.display = 'none'; }
 
   // APR warning
   const aprWarn = document.getElementById('aprWarning');
@@ -1317,11 +1411,10 @@ function updateComparison(loanAmount) {
 
     if (state.mode === 'reverse') {
       const maxLoan = calcPrincipalFromPayment(state.budget, state.apr, t);
-      const taxMul = state.taxRate > 0 ? (1 + state.taxRate / 100) : 1;
-      const p = Math.max(0, (maxLoan + state.down + state.tradeIn) / taxMul);
+      const p = reversePrice(maxLoan, state.down, state.tradeIn, state.taxRule);
       const d = Math.min(state.down, p);
       const tr = Math.min(state.tradeIn, p - d);
-      const tx = state.taxRate > 0 ? p * state.taxRate / 100 : 0;
+      const tx = calculateTax(p, tr, state.taxRule);
       const la = Math.max(0, p - d - tr + tx);
       const r = calcPayment(la, state.apr, t);
       row.innerHTML = `<td style="font-family:var(--body);font-weight:500">${t} mo</td><td>$${fmt(Math.round(p))}</td><td>$${fmt(Math.round(r.totalInterest))}</td><td>$${fmt(Math.round(r.total))}</td>`;
@@ -1498,40 +1591,55 @@ document.getElementById('zip').addEventListener('input', e => {
   const taxInfo = document.getElementById('taxInfo');
 
   if (z.length === 5) {
-    const autoRate = estimateTax(z);
-    if (!state.taxManual) {
+    const autoRule = lookupRule(z);
+    const autoRate = autoRule ? autoRule.rate : 0;
+    if (state.taxManual) {
+      // Keep the manual rate, but inherit the new state's cap / credit rules
+      state.taxRule = buildManualRule(state.taxRate, z);
+    } else {
+      state.taxRule = autoRule;
       state.taxRate = autoRate;
       document.getElementById('taxRateInput').value = autoRate > 0 ? autoRate : '';
       document.getElementById('taxSource').textContent = 'auto from ZIP';
     }
-    if (autoRate === 0) {
+    if (autoRate === 0 && !state.taxManual) {
       taxInfo.textContent = 'No state vehicle sales tax for this ZIP.';
+    } else if (state.taxManual) {
+      taxInfo.textContent = `Custom rate over state base ${autoRate}% — state cap/credit rules still apply`;
     } else {
-      taxInfo.textContent = state.taxManual
-        ? `State rate is ${autoRate}% — you entered a custom rate`
-        : `State vehicle tax: ${autoRate}% (local taxes may add more)`;
+      taxInfo.textContent = `State vehicle tax: ${autoRate}%`;
     }
   } else {
-    if (!state.taxManual) {
+    if (state.taxManual) {
+      // ZIP cleared/incomplete while manual rate is set — fall back to neutral rule
+      state.taxRule = manualRule(state.taxRate);
+      taxInfo.textContent = z.length > 0
+        ? 'Incomplete ZIP — state cap/credit rules dropped'
+        : 'Custom rate applied (no state context — cap/credit rules dropped)';
+    } else {
+      state.taxRule = null;
       state.taxRate = 0;
       document.getElementById('taxRateInput').value = '';
+      taxInfo.textContent = z.length > 0 ? 'Enter full 5-digit ZIP for tax estimate' : '';
     }
-    taxInfo.textContent = z.length > 0 ? 'Enter full 5-digit ZIP for tax estimate' : '';
   }
   update();
 });
 
-// Tax rate manual input — overrides ZIP auto-fill
+// Tax rate manual input — overrides the rate digit; inherits state cap/credit
+// rules from the current ZIP when one is set.
 document.getElementById('taxRateInput').addEventListener('input', e => {
   const raw = parseFloat(e.target.value) || 0;
   state.taxRate = Math.min(Math.max(raw, 0), 15);
   state.taxManual = raw > 0;
+  state.taxRule = state.taxManual ? buildManualRule(state.taxRate, state.zip) : null;
   document.getElementById('taxSource').textContent = state.taxManual ? 'manually set' : 'enter ZIP or set manually';
   const taxInfo = document.getElementById('taxInfo');
   if (state.taxManual) {
-    taxInfo.textContent = state.zip.length === 5
-      ? `Custom rate applied (state rate for this ZIP: ${estimateTax(state.zip)}%)`
-      : 'Custom tax rate applied.';
+    const zipRule = state.zip.length === 5 ? lookupRule(state.zip) : null;
+    taxInfo.textContent = zipRule
+      ? `Custom rate over state base ${zipRule.rate}% — state cap/credit rules still apply`
+      : 'Custom tax rate applied (no state context).';
   } else {
     taxInfo.textContent = '';
   }
@@ -1544,13 +1652,15 @@ document.getElementById('taxRateInput').addEventListener('blur', e => {
     state.taxManual = false;
     // Re-derive from ZIP if available
     if (state.zip.length === 5) {
-      state.taxRate = estimateTax(state.zip);
+      state.taxRule = lookupRule(state.zip);
+      state.taxRate = state.taxRule ? state.taxRule.rate : 0;
       e.target.value = state.taxRate > 0 ? state.taxRate : '';
       document.getElementById('taxSource').textContent = 'auto from ZIP';
       document.getElementById('taxInfo').textContent = state.taxRate > 0
-        ? `State vehicle tax: ${state.taxRate}% (local taxes may add more)`
+        ? `State vehicle tax: ${state.taxRate}%`
         : 'No state vehicle sales tax for this ZIP.';
     } else {
+      state.taxRule = null;
       state.taxRate = 0;
       document.getElementById('taxSource').textContent = 'enter ZIP or set manually';
       document.getElementById('taxInfo').textContent = '';
