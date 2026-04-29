@@ -521,6 +521,17 @@ input[type="range"]::-moz-range-thumb{width:36px;height:36px;background:var(--co
 .footer .f-tagline{font-size:12px;color:var(--text-light);}
 .footer .f-alt{font-size:11px;color:var(--text-light);margin-top:6px;font-style:italic;}
 
+/* Calculate by State (collapsible 50-state grid) */
+.f-states{max-width:880px;margin:18px auto 12px;padding:0 24px;}
+.f-states summary{cursor:pointer;font-family:var(--head);font-weight:600;font-size:13px;color:var(--coral);padding:8px 0;list-style:none;text-align:center;}
+.f-states summary::-webkit-details-marker{display:none;}
+.f-states summary::before{content:'▸ ';transition:transform 0.2s;display:inline-block;}
+.f-states[open] summary::before{transform:rotate(90deg);}
+.f-states-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:4px 14px;margin-top:12px;padding:14px 16px;background:#fff;border:1.5px solid var(--border);border-radius:var(--r-sm);}
+.f-states-grid a{font-size:12px;color:var(--text-mid);text-decoration:none;padding:4px 0;transition:color 0.15s;}
+.f-states-grid a:hover{color:var(--coral);}
+.f-states-grid span{font-size:12px;color:var(--text-light);padding:4px 0;opacity:0.55;cursor:not-allowed;}
+
 /* ========= ANIMATIONS ========= */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 .fi{animation:fadeUp 0.55s ease forwards;}
@@ -955,8 +966,66 @@ input[type="range"]::-moz-range-thumb{width:36px;height:36px;background:var(--co
     <a href="legal.html#privacy">Privacy</a> ·
     <a href="legal.html#disclaimer">Disclaimer</a> ·
     <a href="legal.html#contact">Contact</a> ·
-    <a href="embed.html">Embed Widget</a>
+    <a href="embed.html">Embed Widget</a> ·
+    <a href="https://github.com/wsmhj/carpaymentcalculator" target="_blank" rel="nofollow noopener">Source on GitHub</a>
   </div>
+
+  <details class="f-states">
+    <summary>Calculate by State</summary>
+    <div class="f-states-grid">
+      <span>Alabama</span>
+      <span>Alaska</span>
+      <span>Arizona</span>
+      <span>Arkansas</span>
+      <a href="california.html">California</a>
+      <span>Colorado</span>
+      <span>Connecticut</span>
+      <span>Delaware</span>
+      <span>Florida</span>
+      <span>Georgia</span>
+      <span>Hawaii</span>
+      <span>Idaho</span>
+      <span>Illinois</span>
+      <span>Indiana</span>
+      <span>Iowa</span>
+      <span>Kansas</span>
+      <span>Kentucky</span>
+      <span>Louisiana</span>
+      <span>Maine</span>
+      <span>Maryland</span>
+      <span>Massachusetts</span>
+      <span>Michigan</span>
+      <span>Minnesota</span>
+      <span>Mississippi</span>
+      <span>Missouri</span>
+      <span>Montana</span>
+      <span>Nebraska</span>
+      <span>Nevada</span>
+      <span>New Hampshire</span>
+      <span>New Jersey</span>
+      <span>New Mexico</span>
+      <span>New York</span>
+      <span>North Carolina</span>
+      <span>North Dakota</span>
+      <span>Ohio</span>
+      <span>Oklahoma</span>
+      <span>Oregon</span>
+      <span>Pennsylvania</span>
+      <span>Rhode Island</span>
+      <span>South Carolina</span>
+      <span>South Dakota</span>
+      <span>Tennessee</span>
+      <span>Texas</span>
+      <span>Utah</span>
+      <span>Vermont</span>
+      <span>Virginia</span>
+      <span>Washington</span>
+      <span>West Virginia</span>
+      <span>Wisconsin</span>
+      <span>Wyoming</span>
+    </div>
+  </details>
+
   <div class="f-tagline">Free car payment calculator — not financial advice. Consult your lender for exact terms.</div>
   <div class="f-alt">Also known as a car loan calculator or auto loan calculator</div>
 </div>
