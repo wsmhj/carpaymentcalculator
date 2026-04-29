@@ -24,7 +24,11 @@
       "Bash(bash /tmp/verify-tdk.sh)",
       "Bash(awk '/<div class=\"f-states-grid\">/,/<\\\\/div>/' \"D:/网站/baizaoyin/carpaymentcalculator/index.html\")",
       "Bash(mkdir -p california)",
-      "Bash(mv california.html california/index.html)"
+      "Bash(mv california.html california/index.html)",
+      "Bash(grep -rn '/california/' *.html sitemap.xml california/index.html)",
+      "Bash(grep -rn '/california\\\\b' *.html sitemap.xml california/index.html)",
+      "Bash(awk 'BEGIN{f=0} /^<script>$/{f=1; next} /^<\\\\/script>$/{if\\(f\\){f=0; exit}} f' california/index.html)",
+      "Bash(awk 'BEGIN{f=0} /^<script>$/{f=1; next} /^<\\\\/script>$/{if\\(f\\){f=0; exit}} f' index.html)"
     ]
   }
 }
