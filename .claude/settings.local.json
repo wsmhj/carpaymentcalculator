@@ -22,7 +22,9 @@
       "Bash(bash /tmp/check-tdk.sh)",
       "Bash(bash /tmp/check-tdk2.sh)",
       "Bash(bash /tmp/verify-tdk.sh)",
-      "Bash(awk '/<div class=\"f-states-grid\">/,/<\\\\/div>/' \"D:/网站/baizaoyin/carpaymentcalculator/index.html\")"
+      "Bash(awk '/<div class=\"f-states-grid\">/,/<\\\\/div>/' \"D:/网站/baizaoyin/carpaymentcalculator/index.html\")",
+      "Bash(mkdir -p california)",
+      "Bash(mv california.html california/index.html)"
     ]
   }
 }
