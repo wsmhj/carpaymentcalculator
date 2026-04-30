@@ -2,7 +2,7 @@
 
 > **For future AI sessions**: read this file first. It encodes architectural decisions, conventions, common pitfalls, and what was already tried so you don't re-litigate them.
 
-**Last updated**: 2026-04-29
+**Last updated**: 2026-04-30
 
 ---
 
@@ -271,10 +271,11 @@ Reverse mode solves for P given M (closed-form derivation handles trade-in credi
 7. **CDTFA / DMV links return 403 from China** — owner cannot directly verify them. Test from US IP via Cloudflare WARP / Mullvad / ProtonVPN, or use https://check-host.net.
 8. **Fake metrics ("X calculations today")** are dishonest, AdSense / Google detect them, and they hurt long-term trust. Don't propose this even if users seem to want social proof shortcuts.
 9. **`<label>` without `for=` attribute** doesn't fire on click. Always pair labels with form controls explicitly.
+10. **Copying California page → forgetting to replace state-name in metadata.** When drafting a new state page by copying `california/index.html`, the **content** (article body, FAQ, table data) is obvious to update — but the **metadata** is easy to miss: `<link rel="canonical">`, `<link rel="alternate">`, `og:url`, `twitter:*`, JSON-LD `WebApplication.url`, footer tagline, JS comments. Before commit, grep the new file for `california` and `california.html` — should return zero hits except where deliberate (e.g., comparison tables citing CA rates). Texas page first draft had this bug in 4 places.
 
 ---
 
-## 9. What's been built (state of project as of 2026-04-29)
+## 9. What's been built (state of project as of 2026-04-30)
 
 ### Files
 ```
@@ -282,10 +283,12 @@ carpaymentcalculator/
 ├── index.html           Main calculator + 50-state footer (1 link to /california, 49 spans)
 ├── california/
 │   └── index.html       First state landing page; full template reference
+├── texas/
+│   └── index.html       Second state page; flat 6.25% MV tax + SPV private-party rule
 ├── legal.html           About / Methodology / Privacy / Disclaimer / Contact (Trust page)
 ├── embed.html           Marketing landing page for the embeddable widget
 ├── widget.html          Lite embeddable iframe build (noindex, 3 query params for accent/APR/tax)
-├── sitemap.xml          4 URLs: /, /california, /embed.html, /legal.html
+├── sitemap.xml          5 URLs: /, /california, /texas, /embed.html, /legal.html
 ├── robots.txt
 ├── favicon.svg
 ├── og-image.png         1200×630 OG image
@@ -308,18 +311,19 @@ carpaymentcalculator/
 - embed.html + widget.html with 3 customization params (accent / defaultApr / taxRate)
 - Source on GitHub footer links
 - california/index.html with 322 cities, OBBBA section, Top-5 vehicles
+- texas/index.html with flat 6.25% MV tax, SPV private-party rule, $90 new resident tax, $200 EV fee, OBBBA section
 - All external links have `rel="nofollow noopener"`
 - TDK character compliance
-- 49 footer spans (no dead state links)
-- URL canonical form: `/california` (no slash, no .html)
+- 48 footer spans + 2 active state links (CA, TX)
+- URL canonical form: `/california`, `/texas` (no slash, no .html)
 
 ### Open / TODO
-- Push current state to GitHub (most changes still local)
 - Configure Cloudflare Email Routing for `hello@carpaymentcalculator.app`
-- Submit sitemap to Google Search Console after push
-- Request indexing for `/california` in GSC
-- Verify CA DMV / CDTFA links work for US users (need VPN)
-- Verify Form 1098-VLI / IRS Notice 2025-57 references against IRS official sources
+- Submit updated sitemap to Google Search Console (now includes /texas)
+- Request indexing for `/california` and `/texas` in GSC
+- **Verify Form 1098-VLI / IRS Notice 2025-57 references on irs.gov** — both California and Texas pages cite these specific identifiers; AI cannot verify, owner must
+- Browser-test texas/index.html calculator end-to-end (trade-in deduction, SPV warning toggle, APR manual mode, mobile responsive)
+- Wait 4 weeks of GSC data on /california before publishing Illinois (state #3) — see Section 11 strategy note
 - Outreach: Reddit wikis, calculator directories, Product Hunt, credit-union outreach with embed widget
 
 ### Pilot 5-state plan (decided 2026-04-29)
@@ -329,7 +333,7 @@ Build these 5 states first. After all 5 are live + 4-8 weeks of GSC data, decide
 | Order | State | Why this state |
 |-------|-------|----------------|
 | 1 | ✅ California | Largest market; no-trade-in-credit story; 322 cities differentiation |
-| 2 | Texas | Second-largest market; HAS trade-in credit (deliberate contrast with CA) |
+| 2 | ✅ Texas | Second-largest market; HAS trade-in credit (deliberate contrast with CA) |
 | 3 | Illinois | UNIQUE $10,000 partial trade-in credit cap (Chicago metro relevance) |
 | 4 | South Carolina | UNIQUE $500 IMF flat cap — your tax engine's signature feature |
 | 5 | New York | Biggest county-vs-state tax discrepancy (NYC 8.875% vs state 4%) |

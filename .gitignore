@@ -1,0 +1,12 @@
+# Windows-style redirects accidentally captured as files in Git Bash
+nul
+
+# Editor / OS junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Local-only Claude Code state (keep settings.json checked in if you want)
+.claude/settings.local.json
