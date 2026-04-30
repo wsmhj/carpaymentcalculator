@@ -28,7 +28,12 @@
       "Bash(grep -rn '/california/' *.html sitemap.xml california/index.html)",
       "Bash(grep -rn '/california\\\\b' *.html sitemap.xml california/index.html)",
       "Bash(awk 'BEGIN{f=0} /^<script>$/{f=1; next} /^<\\\\/script>$/{if\\(f\\){f=0; exit}} f' california/index.html)",
-      "Bash(awk 'BEGIN{f=0} /^<script>$/{f=1; next} /^<\\\\/script>$/{if\\(f\\){f=0; exit}} f' index.html)"
+      "Bash(awk 'BEGIN{f=0} /^<script>$/{f=1; next} /^<\\\\/script>$/{if\\(f\\){f=0; exit}} f' index.html)",
+      "Bash(npm root *)",
+      "Bash(ls \"$\\(npm root -g 2>/dev/null\\)/ssh2\")",
+      "Bash(npm install *)",
+      "Bash(npm init *)",
+      "WebFetch(domain:hermesagentai.cn)"
     ]
   }
 }
